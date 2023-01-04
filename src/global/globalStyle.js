@@ -132,12 +132,19 @@ const Global = css`
     box-sizing: border-box;
     border: 0;
     padding: 0;
+    a {
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+  body {
+    background-color: #333333;
   }
 `;
 
 const GlobalStyle = createGlobalStyle`
-${Reset};
-${Global};
+  ${Reset};
+  ${Global};
 `;
 
 export default GlobalStyle;

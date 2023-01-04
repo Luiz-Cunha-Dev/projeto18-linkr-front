@@ -3,9 +3,13 @@ import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../services/linkrAPI.jsx";
+import Loading from "../commons/Loading.jsx";
+import { Container } from "../global/fonts.js";
 
-export default function LoginPage() {
+export default function SignIn() {
+  
   const navigate = useNavigate();
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sending, setSending] = useState(false);
@@ -28,7 +32,7 @@ export default function LoginPage() {
         navigate("/timeline");
       })
       .catch((err) => {
-        alert("Erro ao fazer login. Tente novamente.");
+        alert("Erro ao fazer login. E-mail ou senha incorretos.");
         console.log(err);
         setSending(false);
         setEmail("");
@@ -39,8 +43,12 @@ export default function LoginPage() {
   return(
   <Wrapper>
     <Header>
-      <h1>Linkr</h1>
-      <p>save, share and discover the best links on the web</p>
+      <Container>
+        <TextLinkr>
+          <h1>linkr</h1>
+          <p>save, share and discover the best links on the web</p>
+        </TextLinkr>
+      </Container>
     </Header>
     <Form onSubmit={loginSubmit}>
       <Input
@@ -63,44 +71,80 @@ export default function LoginPage() {
       />
 
       <Button type="submit" disabled={sending}>
-        {/* {sending ? <loading /> : "Log In"} */}
+        {sending ? <Loading /> : "Log In"}
       </Button>
 
       <Link to="/sign-up">
-        <h5>First time: Create an account!</h5>
+        <LinkTo>First time: Create an account!</LinkTo>
       </Link>
     </Form>
-  </Wrapper>);
+  </Wrapper>
+  );
 }
 
 const Wrapper = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: #333333;
+  background-color: #151515;
   display: flex;
-  flex-direction: column;
   align-items: center;
-
-  @media screen and (min-width: 1024px) {
-    flex-direction: row;
-  }
+  box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
+  @media (max-width: 614px){
+    flex-direction: column;
+    overflow-y: scroll;
+}
 `;
 
 const Header = styled.div`
-  width: 100%;
-  height: 20vh;
+  width: 160%;
+  height: 100%;
   background-color: #151515;
   color: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  font-family: "Passion One", cursive;
+  @media (max-width: 614px){
+    width: 100%;
+    height: 50%;
+    margin-bottom: 20px;
+  }
 `;
+
+const TextLinkr = styled.div`
+  width: 80%;
+  height: 100%;
+  margin: 0 20px;
+  h1 {
+    font-size: 106px;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: 38px;
+    font-weight: 700;
+  }
+  @media (max-width: 614px){
+    width: 100%;
+    height: 50%;
+    margin: 0;
+    h1 {
+      text-align: center;
+
+    }
+    p {
+      text-align: center;
+      font-size: 28px;
+      margin: 0 10px;
+    }
+    
+`;
+
 
 const Form = styled.form`
   width: 100%;
-  height: 80vh;
+  height: 100%;
   display: flex;
+  background-color: #333333;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -108,31 +152,56 @@ const Form = styled.form`
 `;
 
 const Input = styled.input`
+  box-sizing: border-box;
   width: 100%;
   height: 58px;
   border-radius: 5px;
   border: none;
-  padding: 0 15px;
   margin-bottom: 6px;
+  padding: 0 15px;
+  margin: 5px;
   font-size: 20px;
-  color: #ffffff;
-  background-color: #252525;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
+  color: #333333;
+  background-color: #ffffff;
   ::placeholder {
-    color: #ffffff;
+    color: #9F9F9F;
+    ;
   }
 `;
 
 const Button = styled.button`
-  width: 100%;
-  height: 46px;
-  border-radius: 5px;
-  border: none;
-  margin-bottom: 6px;
-  font-size: 20px;
+width: 100%;
+height: 46px;
+border-radius: 5px;
+border: none;
+padding: 0 15px;
+margin: 6px 0;
+font-size: 20px;
+font-family: "Oswald", sans-serif;
+font-weight: 700;
   color: #ffffff;
   background-color: #1877f2;
   :disabled {
     background-color: #1877f2;
     opacity: 0.7;
   }
+  :hover {
+    cursor: pointer;
+    transform: scale(1.02);
+  }
+`;
+
+const LinkTo = styled.h5`
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  margin-top: 20px;
+  :hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
 `;
