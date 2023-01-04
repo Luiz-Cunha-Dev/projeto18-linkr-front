@@ -2,9 +2,34 @@ import { useState } from "react";
 import React from "react";
 import styled from "styled-components";
 import ProfilePic from "../images/profilepic.png";
+import { createPost } from "../services/linkrAPI.jsx";
 
 export default function CreatePost() {
   const [isLoading, setIsLoading] = useState(false);
+  const [form, setForm] = useState({ link: "", comments: "" });
+
+  function handleForm(e) {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  }
+  function postSubmit(e) {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const body = { link: form.link, comment: form.comments };
+
+    createPost(body)
+      .then((res) => {
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+        setForm({ link: "", comments: "" });
+        alert("Houve um erro ao publicar seu link");
+      });
+  }
+
   return (
     <Wraper>
       <ProfilePicture>
@@ -12,27 +37,31 @@ export default function CreatePost() {
       </ProfilePicture>
       <Content>
         <h1>What are you going to share today?</h1>
-        <Form>
-          <input
-            type="text"
-            placeholder="http://..."
-            value={""}
-            onChange={""}
-            required
-            disabled={isLoading}
-          />
-          <input
-            type="text"
-            placeholder="Awesome article about #javascript"
-            value={""}
-            onChange={""}
-            required
-            disabled={isLoading}
-          />
-          <button type="submit" disabled={isLoading}>
-            {isLoading ? "Publishing..." : "Publish"}
-          </button>
-        </Form>
+
+        <form onSubmit={postSubmit}>
+          <Form>
+            <input
+              name="link"
+              type="text"
+              placeholder="http://..."
+              value={form.link}
+              onChange={handleForm}
+              required
+              disabled={isLoading}
+            />
+            <input
+              name="comments"
+              type="text"
+              placeholder="Awesome article about #javascript"
+              value={form.comments}
+              onChange={handleForm}
+              disabled={isLoading}
+            />
+            <button type="submit" disabled={isLoading}>
+              {isLoading ? "Publishing..." : "Publish"}
+            </button>
+          </Form>
+        </form>
       </Content>
     </Wraper>
   );
@@ -70,6 +99,12 @@ const Content = styled.div`
     font-size: 20px;
     color: #707070;
   }
+`;
+
+const Form = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 150px;
 
   input {
     width: 503px;
@@ -78,7 +113,7 @@ const Content = styled.div`
     box-sizing: border-box;
     margin-top: 5px;
     background-color: ${(props) => (props.disabled ? "#F2F2F2" : "#EFEFEF")};
-    color: #949494;
+    color: #707070;
     border: 0px;
     border-radius: 5px;
     font-family: "Lato", sans-serif;
@@ -104,15 +139,8 @@ const Content = styled.div`
     border-radius: 5px;
     color: #ffffff;
     border: 0px;
-    margin-top: 5px;
     margin-left: 390px;
-  }
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  input {
-    background-color: #efefef;
+    margin-top: 5px;
+    cursor: pointer;
   }
 `;

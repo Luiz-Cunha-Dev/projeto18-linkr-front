@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React from "react";
 import CreatePost from "./CreatePost.jsx";
-import { Container } from "../global/fonts.js";
 
 export default function Timeline() {
   return (
