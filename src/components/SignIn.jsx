@@ -32,7 +32,7 @@ export default function SignIn() {
         navigate("/timeline");
       })
       .catch((err) => {
-        alert("Erro ao fazer login. Tente novamente.");
+        alert("Erro ao fazer login. E-mail ou senha incorretos.");
         console.log(err);
         setSending(false);
         setEmail("");
@@ -89,9 +89,10 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
-  @media screen and (min-width: 1024px) {
-    flex-direction: row;
-  }
+  @media (max-width: 614px){
+    flex-direction: column;
+    overflow-y: scroll;
+}
 `;
 
 const Header = styled.div`
@@ -103,6 +104,11 @@ const Header = styled.div`
   flex-direction: column;
   justify-content: center;
   font-family: "Passion One", cursive;
+  @media (max-width: 614px){
+    width: 100%;
+    height: 50%;
+    margin-bottom: 20px;
+  }
 `;
 
 const TextLinkr = styled.div`
@@ -117,6 +123,20 @@ const TextLinkr = styled.div`
     font-size: 38px;
     font-weight: 700;
   }
+  @media (max-width: 614px){
+    width: 100%;
+    height: 50%;
+    margin: 0;
+    h1 {
+      text-align: center;
+
+    }
+    p {
+      text-align: center;
+      font-size: 28px;
+      margin: 0 10px;
+    }
+    
 `;
 
 
