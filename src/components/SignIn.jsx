@@ -7,9 +7,8 @@ import Loading from "../commons/Loading.jsx";
 import { Container } from "../global/fonts.js";
 
 export default function SignIn() {
-  
   const navigate = useNavigate();
-  
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sending, setSending] = useState(false);
@@ -40,45 +39,45 @@ export default function SignIn() {
       });
   }
 
-  return(
-  <Wrapper>
-    <Header>
-      <Container>
-        <TextLinkr>
-          <h1>linkr</h1>
-          <p>save, share and discover the best links on the web</p>
-        </TextLinkr>
-      </Container>
-    </Header>
-    <Form onSubmit={loginSubmit}>
-      <Input
-        disabled={sending}
-        required
-        type="email"
-        name="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="E-mail"
-      />
-      <Input
-        disabled={sending}
-        required
-        type="password"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-      />
+  return (
+    <Wrapper>
+      <Header>
+        <Container>
+          <TextLinkr>
+            <h1>linkr</h1>
+            <p>save, share and discover the best links on the web</p>
+          </TextLinkr>
+        </Container>
+      </Header>
+      <Form onSubmit={loginSubmit}>
+        <Input
+          disabled={sending}
+          required
+          type="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="E-mail"
+        />
+        <Input
+          disabled={sending}
+          required
+          type="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+        />
 
-      <Button type="submit" disabled={sending}>
-        {sending ? <Loading /> : "Log In"}
-      </Button>
+        <Button type="submit" disabled={sending}>
+          {sending ? <Loading /> : "Log In"}
+        </Button>
 
-      <Link to="/sign-up">
-        <LinkTo>First time: Create an account!</LinkTo>
-      </Link>
-    </Form>
-  </Wrapper>
+        <Link to="/sign-up">
+          <LinkTo>First time: Create an account!</LinkTo>
+        </Link>
+      </Form>
+    </Wrapper>
   );
 }
 
@@ -89,10 +88,10 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   box-shadow: 4px 0px 4px rgba(0, 0, 0, 0.25);
-  @media (max-width: 614px){
+  @media (max-width: 614px) {
     flex-direction: column;
     overflow-y: scroll;
-}
+  }
 `;
 
 const Header = styled.div`
@@ -104,7 +103,7 @@ const Header = styled.div`
   flex-direction: column;
   justify-content: center;
   font-family: "Passion One", cursive;
-  @media (max-width: 614px){
+  @media (max-width: 614px) {
     width: 100%;
     height: 50%;
     margin-bottom: 20px;
@@ -139,7 +138,6 @@ const TextLinkr = styled.div`
     
 `;
 
-
 const Form = styled.form`
   width: 100%;
   height: 100%;
@@ -166,21 +164,20 @@ const Input = styled.input`
   color: #333333;
   background-color: #ffffff;
   ::placeholder {
-    color: #9F9F9F;
-    ;
+    color: #9f9f9f;
   }
 `;
 
 const Button = styled.button`
-width: 100%;
-height: 46px;
-border-radius: 5px;
-border: none;
-padding: 0 15px;
-margin: 6px 0;
-font-size: 20px;
-font-family: "Oswald", sans-serif;
-font-weight: 700;
+  width: 100%;
+  height: 46px;
+  border-radius: 5px;
+  border: none;
+  padding: 0 15px;
+  margin: 6px 0;
+  font-size: 20px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
   color: #ffffff;
   background-color: #1877f2;
   :disabled {
@@ -203,5 +200,4 @@ const LinkTo = styled.h5`
     cursor: pointer;
     text-decoration: underline;
   }
-  
 `;
