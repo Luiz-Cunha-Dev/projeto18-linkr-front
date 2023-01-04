@@ -104,6 +104,7 @@ const Reset = css`
     display: block;
   }
   body {
+    background-color: #333333;
     line-height: 1;
   }
   ol,

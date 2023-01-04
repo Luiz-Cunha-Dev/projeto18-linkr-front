@@ -4,6 +4,7 @@ import GlobalStyle from "./global/globalStyle.js";
 import userContext from "../src/contexts/userContexts.jsx";
 import PrivatePage from "../src/components/privatePage.jsx";
 import LoginPage from "../src/components/LoginPage.jsx";
+import CreatePost from "./components/CreatePost.jsx";
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -20,6 +21,7 @@ export default function App() {
               element={
                 <PrivatePage>
                   <h1>Timeline</h1>
+                  <CreatePost />
                 </PrivatePage>
               }
             />
