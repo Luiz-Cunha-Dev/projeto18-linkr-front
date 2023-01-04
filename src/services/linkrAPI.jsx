@@ -13,4 +13,8 @@ function login(body) {
   return axios.post(`${BASE_URL}/sign-in`, body);
 }
 
-export { getToken, login };
+function createPost(body) {
+  return axios.post(`${BASE_URL}/timeline`, body);
+}
+
+export { getToken, login, createPost };
