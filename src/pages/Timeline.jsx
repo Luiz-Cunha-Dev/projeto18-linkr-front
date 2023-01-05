@@ -8,7 +8,7 @@ export default function Timeline() {
     <Wraper>
       <Header/>
       <h1>timeline</h1>
-      <CreatePost />
+
     </Wraper>
   );
 }

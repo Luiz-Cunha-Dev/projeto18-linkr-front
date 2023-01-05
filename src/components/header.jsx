@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import {FiChevronDown, FiChevronUp} from "react-icons/fi"
+import {FiChevronDown, FiChevronUp, FiSearch} from "react-icons/fi"
 
 export default function Header() {
     const [logoutButton, setLogoutButton] = useState(false)
 
 
     return (
+      <>
   <HeaderStyle state={logoutButton !== true ? "none" : "initial"}>
 <div className="logo">linkr</div>
+<input placeholder="Search for people"/>
+<FiSearch  className="search"/>
 <div className="rigth">
     {logoutButton !== true ?  <FiChevronDown onClick={() => setLogoutButton(!logoutButton)} className="react-icons" /> :  <FiChevronUp onClick={() => setLogoutButton(!logoutButton)} className="react-icons" />}
 
@@ -16,6 +19,11 @@ export default function Header() {
     </div>
     <div  className="logout">Logout</div>
   </HeaderStyle>
+  <SearchBar>
+  <input placeholder="Search for people"/>
+  <FiSearch  className="searchIcon"/>
+  </SearchBar>
+  </>
     );
   }
   
@@ -30,6 +38,10 @@ export default function Header() {
   padding-right: 17px;
   background: #151515;
   position: relative;
+  @media (max-width: 614px){
+  padding-left: 17px;
+  padding-right: 15px;
+}
   .logo{
     font-family: 'Passion One';
 font-style: normal;
@@ -38,6 +50,10 @@ font-size: 49px;
 line-height: 54px;
 letter-spacing: 0.05em;
 color: #FFFFFF;
+@media (max-width: 614px){
+  font-size: 45px;
+line-height: 50px;
+}
   }
   .rigth{
     display: flex;
@@ -46,6 +62,10 @@ color: #FFFFFF;
         width: 53px;
         border-radius: 25px;
         margin-left: 10px;
+        @media (max-width: 614px){
+        width: 41px;
+        border-radius: 25px;
+        }
     }
   }
   .react-icons {
@@ -53,6 +73,9 @@ color: #FFFFFF;
   color: white;
   height: 100px;
   cursor: pointer;
+  @media (max-width: 614px){
+  font-size: 25px;
+}
 }
 .logout{
 padding-left: 37px;
@@ -72,5 +95,83 @@ line-height: 20px;
 letter-spacing: 0.05em;
 color: #FFFFFF;
 display: ${props => props.state};
+@media (max-width: 614px){
+  font-size: 15px;
+line-height: 18px;
+height: 43px;
+}
+}
+input{
+  position: absolute;
+width: 563px;
+height: 45px;
+left: 460px;
+top: 14px;
+background: #FFFFFF;
+border-radius: 8px;
+padding-left: 14px;
+::placeholder{
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 23px;
+color: #C6C6C6;
+}
+@media (max-width: 1228px){
+  width: 300px;
+  left: 180px;
+}
+@media (max-width: 614px){
+  display: none;
+}
+}
+.search{
+  position: absolute;
+  left: 990px;
+  width: 21px;
+  color: #C6C6C6;
+  z-index: 1;
+  @media (max-width: 1228px){
+  left: 445px;
+}
+  @media (max-width: 614px){
+    display: none;
+}
+}
+  `
+  const SearchBar = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  position: relative;
+  margin-bottom: 19px;
+    input{
+  width: 90%;
+height: 45px;
+background: #FFFFFF;
+border-radius: 8px;
+padding-left: 14px;
+::placeholder{
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 23px;
+color: #C6C6C6;
+}
+@media (min-width: 614px){
+    display: none;
+}
+}
+.searchIcon{
+  position: absolute;
+  left: 85%;
+  width: 21px;
+  color: #C6C6C6;
+  z-index: 1;
+  @media (min-width: 614px){
+    display: none;
 }
   `
