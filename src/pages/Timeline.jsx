@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import React from "react";
-import CreatePost from "./CreatePost.jsx";
-import Header from './header.jsx';
+import CreatePost from "../components/CreatePost.jsx";
+import Header from '../components/header.jsx';
 
 export default function Timeline() {
   return (

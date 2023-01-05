@@ -3,10 +3,10 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "./global/globalStyle";
 import userContext from "./contexts/userContexts.jsx";
-import PrivatePage from "./components/privatePage.jsx";
-import SignIn from "./components/SignIn.jsx";
-import SignUp from "./components/SignUp.jsx";
-import Timeline from "./components/Timeline.jsx";
+import PrivatePage from "./pages/privatePage.jsx";
+import SignIn from "./pages/SignIn.jsx";
+import SignUp from "./pages/SignUp.jsx";
+import Timeline from "./pages/Timeline.jsx";
 
 export default function App() {
   const [user, setUser] = useState({});
