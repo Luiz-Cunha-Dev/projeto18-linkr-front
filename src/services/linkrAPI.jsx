@@ -6,6 +6,7 @@ const BASE_URL =
 
 function getToken() {
   const auth = JSON.parse(localStorage.getItem('linkr'));
+  if(auth === null) return;
   return auth.token;
 }
 
