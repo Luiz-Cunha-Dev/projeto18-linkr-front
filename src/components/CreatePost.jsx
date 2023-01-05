@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import styled from "styled-components";
 import ProfilePic from "../images/profilepic.png";
@@ -18,16 +18,18 @@ export default function CreatePost() {
 
     const body = { link: form.link, comment: form.comments };
 
-    createPost(body)
-      .then((res) => {
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        console.log(err);
-        setForm({ link: "", comments: "" });
-        alert("Houve um erro ao publicar seu link");
-      });
+    useEffect(() => {
+      createPost(body)
+        .then((res) => {
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setIsLoading(false);
+          console.log(err);
+          setForm({ link: "", comments: "" });
+          alert("Houve um erro ao publicar seu link");
+        });
+    });
   }
 
   return (
