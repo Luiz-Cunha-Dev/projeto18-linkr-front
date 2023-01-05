@@ -1,17 +1,33 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import {FiChevronDown, FiChevronUp, FiSearch} from "react-icons/fi"
+import {DebounceInput} from 'react-debounce-input';
+import axios from "axios";
 
 export default function Header() {
     const [logoutButton, setLogoutButton] = useState(false)
+    const [search, setSearch] = useState("")
 
+    function searchUsers(){
+      if(search !== ""){
+        const URL = "https://api-linkr-0kjk.onrender.com/users"
+
+        axios.get(URL, {name: search})
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+      }
+    }
 
     return (
       <>
   <HeaderStyle state={logoutButton !== true ? "none" : "initial"}>
 <div className="logo">linkr</div>
-<input placeholder="Search for people"/>
-<FiSearch  className="search"/>
+<DebounceInput className="debounceInput" placeholder="Search for people" minLength={3} debounceTimeout={300} onChange={event => setSearch(event.target.value)} />
+<FiSearch onClick={searchUsers} className="search"/>
 <div className="rigth">
     {logoutButton !== true ?  <FiChevronDown onClick={() => setLogoutButton(!logoutButton)} className="react-icons" /> :  <FiChevronUp onClick={() => setLogoutButton(!logoutButton)} className="react-icons" />}
 
@@ -20,8 +36,8 @@ export default function Header() {
     <div  className="logout">Logout</div>
   </HeaderStyle>
   <SearchBar>
-  <input placeholder="Search for people"/>
-  <FiSearch  className="searchIcon"/>
+  <DebounceInput className="debounceInput" placeholder="Search for people" minLength={3} debounceTimeout={300} onChange={event => setSearch(event.target.value)} />
+  <FiSearch onClick={searchUsers} className="searchIcon"/>
   </SearchBar>
   </>
     );
@@ -101,7 +117,7 @@ line-height: 18px;
 height: 43px;
 }
 }
-input{
+.debounceInput{
   position: absolute;
 width: 563px;
 height: 45px;
@@ -147,7 +163,7 @@ color: #C6C6C6;
   margin-top: 10px;
   position: relative;
   margin-bottom: 19px;
-    input{
+  .debounceInput{
   width: 90%;
 height: 45px;
 background: #FFFFFF;
