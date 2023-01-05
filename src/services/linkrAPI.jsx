@@ -6,11 +6,36 @@ const BASE_URL =
 
 function getToken() {
   const auth = JSON.parse(localStorage.getItem('linkr'));
-  return auth.token;
+  if (!auth) {
+    return false;
+  }
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${auth.token}`,
+    },
+  };
+
+  return config;
 }
 
 function login(body) {
-  return axios.post(`${BASE_URL}/sign-in`, body);
+  return axios.post(`${BASE_URL}/`, body);
 }
 
-export { getToken, login };
+function logout() {
+  localStorage.removeItem('linkr');
+}
+
+function signUp(body) {
+  return axios.post(`${BASE_URL}/sign-up`, body);
+}
+
+function getUser() {
+  const token = getToken();
+  const config = { headers: { Authorization: `Bearer ${token}` } };
+  return axios.get(`${BASE_URL}users`, config);
+
+}
+
+export { getToken, login, logout, signUp, getUser };
