@@ -18,9 +18,12 @@ export default function SignUp() {
     
     signUp(form)
     .then((res) => {
+      console.log(res);
       navigate("/");
     }
     ).catch((err) => {
+      console.log(err);
+      console.log(form);
       if (err.response.status === 409) {
         alert("E-mail já cadastrado");
       } else if (err.response.status === 400) {
@@ -73,7 +76,7 @@ export default function SignUp() {
           ></Input>
           <Input
             type="name"
-            name="name"
+            name="username"
             placeholder="Username"
             disabled={disabled}
             onChange={(e) =>
@@ -82,7 +85,7 @@ export default function SignUp() {
           ></Input>
           <Input
             type="text"
-            name="profilePic"
+            name="pictureUrl"
             placeholder="Picture URL"
             disabled={disabled}
             onChange={(e) =>

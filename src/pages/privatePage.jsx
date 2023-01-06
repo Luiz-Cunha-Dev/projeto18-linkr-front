@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import React from "react";
 import { getToken } from "../services/linkrAPI.jsx";
 import { useNavigate } from "react-router-dom";
-import LogoutTab from "./LogoutTab.jsx";
+import LogoutTab from "../components/LogoutTab.jsx";
 
 export default function PrivatePage({ children }) {
   const navigate = useNavigate();
