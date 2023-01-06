@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../services/linkrAPI.jsx";
+import { login, getUser } from "../services/linkrAPI.jsx";
+import userContext from "../contexts/userContexts.jsx";
 import Loading from "../commons/Loading.jsx";
 import { Container } from "../global/fonts.js";
 
@@ -13,21 +14,44 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(false);
 
+  const { user, setUser } = useContext(userContext);
+
   useEffect(() => {
     if (localStorage.getItem("linkr") !== null) {
+      setUser(JSON.parse(localStorage.getItem("linkr")));
       navigate("/timeline");
     }
-  }, [navigate]);
+  }, []);
+
+  function loadUser() {
+    getUser()
+      .then((res) => {
+        const { email, password} = JSON.parse(localStorage.getItem("linkr"));
+        const { name, profilePic, id} = res.data;
+        const dateLogin = new Date();
+        const newUser = { email, password, name, profilePic, id, dateLogin };
+
+        localStorage.setItem("linkr", JSON.stringify(newUser));
+      })
+      .catch((err) => {
+        localStorage.removeItem("linkr");
+        alert("Não foi possível carregar o usuário. Tente novamente.");
+        console.log(err);
+      });
+  }
 
   function loginSubmit(e) {
     e.preventDefault();
+    
     setDisabled(true);
 
     const body = { email: email, password: password };
 
     login(body)
       .then((res) => {
-        localStorage.setItem("linkr", JSON.stringify(res.data.token));
+        localStorage.setItem("linkr", JSON.stringify({email, token: res.data.token}));
+        
+        loadUser(); 
         navigate("/timeline");
       })
       .catch((err) => {

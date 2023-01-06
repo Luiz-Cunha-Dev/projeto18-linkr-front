@@ -10,28 +10,37 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const [disabled, setDisabled] = useState(false);
-  const [ form, setForm ] = useState({});
+  const [form, setForm] = useState({});
 
   function sendForm(e) {
     e.preventDefault(); 
     setDisabled(true);
     
-    const promise = signUp(form);
-
-    promise.then((res) => {
+    signUp(form)
+    .then((res) => {
       navigate("/");
     }
     ).catch((err) => {
-      alert("Erro ao fazer cadastro. E-mail ou senha incorretos.");
-      console.log(err);
+      if (err.response.status === 409) {
+        alert("E-mail já cadastrado");
+      } else if (err.response.status === 400) {
+        alert("Preencha todos os campos");
+      } else {
+        alert("Não foi possível cadastrar. Tente novamente.");
+      }
+      
       setDisabled(false);
     }
     );
   }
 
   function handleForm({ name, value }) {
-    setForm({ ...form, [name]: value });
+    setForm({
+      ...form,
+      [name]: value,
+    });
   }
+
 
   return (
     <Wrapper>
@@ -47,7 +56,7 @@ export default function SignUp() {
       <Input
             type="email"
             name="email"
-            placeholder="e-mail"
+            placeholder="E-mail"
             disabled={disabled}
             onChange={(e) =>
               handleForm({ name: e.target.name, value: e.target.value })
@@ -56,7 +65,7 @@ export default function SignUp() {
           <Input
             type="password"
             name="password"
-            placeholder="password"
+            placeholder="Password"
             disabled={disabled}
             onChange={(e) =>
               handleForm({ name: e.target.name, value: e.target.value })
@@ -65,7 +74,7 @@ export default function SignUp() {
           <Input
             type="name"
             name="name"
-            placeholder="username"
+            placeholder="Username"
             disabled={disabled}
             onChange={(e) =>
               handleForm({ name: e.target.name, value: e.target.value })
@@ -74,7 +83,7 @@ export default function SignUp() {
           <Input
             type="text"
             name="profilePic"
-            placeholder="picture URL"
+            placeholder="Picture URL"
             disabled={disabled}
             onChange={(e) =>
               handleForm({ name: e.target.name, value: e.target.value })
