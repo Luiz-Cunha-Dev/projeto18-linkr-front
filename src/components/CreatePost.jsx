@@ -18,7 +18,7 @@ export default function CreatePost() {
 
     const body = { link: form.link, comment: form.comments };
 
-    useEffect(() => {
+    //useEffect(() => {
       createPost(body)
         .then((res) => {
           setIsLoading(false);
@@ -29,7 +29,7 @@ export default function CreatePost() {
           setForm({ link: "", comments: "" });
           alert("Houve um erro ao publicar seu link");
         });
-    });
+    //});
   }
 
   return (
