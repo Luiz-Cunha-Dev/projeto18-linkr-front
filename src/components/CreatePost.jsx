@@ -18,18 +18,16 @@ export default function CreatePost() {
 
     const body = { link: form.link, comment: form.comments };
 
-    useEffect(() => {
-      createPost(body)
-        .then((res) => {
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setIsLoading(false);
-          console.log(err);
-          setForm({ link: "", comments: "" });
-          alert("Houve um erro ao publicar seu link");
-        });
-    });
+    createPost(body)
+      .then((res) => {
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+        setForm({ link: "", comments: "" });
+        alert("Houve um erro ao publicar seu link");
+      });
   }
 
   return (
