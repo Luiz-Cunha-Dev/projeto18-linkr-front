@@ -6,53 +6,55 @@ import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import styled from "styled-components";
 
 export default function LogoutTab() {
-    const navigate = useNavigate();
-    const [turnArrow, setTurnArrow] = useState(false);
-    const { user, setUser } = useContext(userContext);
+    
+  const navigate = useNavigate();
   
-    function resetUser() {
-      logout()
-        .then(() => {
-          localStorage.removeItem("linkr");
+  const [turnOff, setTurnOff] = useState(false);
+  
+  const { user, setUser } = useContext(userContext);
+  
+  function resetUser() {
+    logout()
+      .then(() => {
+        localStorage.removeItem("linkr");
           setUser({});
-          navigate("/");
+        navigate("/");
         })
-        .catch(() => {
-          alert("Ops... não foi possível deslogar, tente novamente mais tarde.");
-        });
+      .catch(() => {
+        alert("Não foi possível fazer logout. Tente novamente.");
+      });
     }
   
     return (
       <>
         <ContainerTop
           onClick={() => {
-            if (turnArrow) {
-              setTurnArrow(false);
+            if (turnOff) {
+              setTurnOff(false);
             }
           }}
         >
           <Linkr>
             <h1 onClick={() => navigate("/")}>linkr</h1>
           </Linkr>
-          <ContainerUserPic onClick={() => setTurnArrow(!turnArrow)}>
-            {turnArrow ? <FiChevronUp /> : <FiChevronDown />}
+          <ContainerPictureUser onClick={() => setTurnOff(!turnOff)}>
+            {turnOff ? <FiChevronUp /> : <FiChevronDown />}
   
-            <UserPic
-              /* src={!!user?.profilePic ? user?.profilePic : "https://http.cat/404"}
-              alt={user?.name} */
+            <PictureUser
+              src={user && user.profilePic ? user.profilePic : "https://picsum.photos/200/300"}
             />
-          </ContainerUserPic>
+          </ContainerPictureUser>
         </ContainerTop>
-        <BoxLogout active={turnArrow}>
+        <BoxLogout active={turnOff}>
           <div>
             <h3 onClick={() => resetUser()}>logout</h3>
           </div>
         </BoxLogout>
         <ClickCaptureBox
-          active={turnArrow}
+          active={turnOff}
           onClick={() => {
-            if (turnArrow) {
-              setTurnArrow(false);
+            if (turnOff) {
+              setTurnOff(false);
             }
           }}
         />
@@ -75,7 +77,7 @@ export default function LogoutTab() {
     padding: 0 15px;
   `;
   
-  const ContainerUserPic = styled.div`
+  const ContainerPictureUser = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -116,7 +118,7 @@ export default function LogoutTab() {
     }}
   `;
   
-  const UserPic = styled.img`
+  const PictureUser = styled.img`
     width: 44px;
     height: 44px;
     border-radius: 26px;
