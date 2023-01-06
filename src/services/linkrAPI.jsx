@@ -8,26 +8,14 @@ function getToken() {
   const auth = JSON.parse(localStorage.getItem("linkr"));
   if (auth === null) return;
   return auth.token;
-  const auth = JSON.parse(localStorage.getItem('linkr'));
-  if (!auth) {
-    return false;
-  }
-
-  const config = {
-    headers: {
-      Authorization: `Bearer ${auth.token}`,
-    },
-  };
-
-  return config;
 }
 
 function login(body) {
-  return axios.post(`${BASE_URL}/`, body);
+  return axios.post(`${BASE_URL}/sign-in`, body);
 }
 
 function logout() {
-  localStorage.removeItem('linkr');
+  localStorage.removeItem("linkr");
 }
 
 function signUp(body) {
@@ -38,7 +26,14 @@ function getUser() {
   const token = getToken();
   const config = { headers: { Authorization: `Bearer ${token}` } };
   return axios.get(`${BASE_URL}users`, config);
-
 }
 
-export { getToken, login, logout, signUp, getUser };
+function createPost(body) {
+  return axios.post(`${BASE_URL}/timeline`, body);
+}
+
+function getPosts() {
+  return axios.get(`${BASE_URL}/timeline`);
+}
+
+export { getToken, login, logout, signUp, getUser, createPost, getPosts };
