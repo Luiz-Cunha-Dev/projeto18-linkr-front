@@ -1,10 +1,38 @@
 import styled from "styled-components";
-import React from "react";
+import React, {useState} from "react";
 import { Container } from "../global/fonts";
-import { Link } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import Loading from "../commons/Loading";
+import { signUp } from "../services/linkrAPI";
 
 export default function SignUp() {
+
+  const navigate = useNavigate();
+
+  const [disabled, setDisabled] = useState(false);
+  const [ form, setForm ] = useState({});
+
+  function sendForm(e) {
+    e.preventDefault(); 
+    setDisabled(true);
+    
+    const promise = signUp(form);
+
+    promise.then((res) => {
+      navigate("/");
+    }
+    ).catch((err) => {
+      alert("Erro ao fazer cadastro. E-mail ou senha incorretos.");
+      console.log(err);
+      setDisabled(false);
+    }
+    );
+  }
+
+  function handleForm({ name, value }) {
+    setForm({ ...form, [name]: value });
+  }
+
   return (
     <Wrapper>
       <Header>
@@ -15,25 +43,45 @@ export default function SignUp() {
           </TextLinkr>
         </Container>
       </Header>
-      <Form>
-        <Input required type="email" name="email" placeholder="E-mail" />
-        <Input
-          required
-          type="password"
-          name="password"
-          placeholder="Password"
-        />
-        <Input required type="text" name="username" placeholder="Username" />
-        <Input
-          required
-          type="url"
-          name="pictureUrl"
-          placeholder="Picture URL"
-        />
-
+      <Form onSubmit={sendForm}>
+      <Input
+            type="email"
+            name="email"
+            placeholder="e-mail"
+            disabled={disabled}
+            onChange={(e) =>
+              handleForm({ name: e.target.name, value: e.target.value })
+            }
+          ></Input>
+          <Input
+            type="password"
+            name="password"
+            placeholder="password"
+            disabled={disabled}
+            onChange={(e) =>
+              handleForm({ name: e.target.name, value: e.target.value })
+            }
+          ></Input>
+          <Input
+            type="name"
+            name="name"
+            placeholder="username"
+            disabled={disabled}
+            onChange={(e) =>
+              handleForm({ name: e.target.name, value: e.target.value })
+            }
+          ></Input>
+          <Input
+            type="text"
+            name="profilePic"
+            placeholder="picture URL"
+            disabled={disabled}
+            onChange={(e) =>
+              handleForm({ name: e.target.name, value: e.target.value })
+            }
+          ></Input>
         <Button type="submit">
-          Sign Up
-          {/* {sending ? <Loading /> : "Log In"} */}
+          {disabled ? <Loading /> : "Sign Up"}
         </Button>
 
         <Link to="/">
@@ -85,7 +133,7 @@ const TextLinkr = styled.div`
   }
   p {
     margin: 0 40px;
-    font-size: 38px;
+    font-size: 36px;
     font-weight: 700;
     animation: fadeIn 2s;
   }
@@ -165,6 +213,9 @@ const Button = styled.button`
   font-family: "Oswald", sans-serif;
   font-weight: 700;
   color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #1877f2;
   :disabled {
     background-color: #1877f2;

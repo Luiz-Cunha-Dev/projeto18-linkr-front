@@ -11,7 +11,7 @@ export default function SignIn() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [sending, setSending] = useState(false);
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (localStorage.getItem("linkr") !== null) {
@@ -21,7 +21,7 @@ export default function SignIn() {
 
   function loginSubmit(e) {
     e.preventDefault();
-    setSending(true);
+    setDisabled(true);
 
     const body = { email: email, password: password };
 
@@ -33,7 +33,7 @@ export default function SignIn() {
       .catch((err) => {
         alert("Erro ao fazer login. E-mail ou senha incorretos.");
         console.log(err);
-        setSending(false);
+        setDisabled(false);
         setEmail("");
         setPassword("");
       });
@@ -51,7 +51,7 @@ export default function SignIn() {
       </Header>
       <Form onSubmit={loginSubmit}>
         <Input
-          disabled={sending}
+          disabled={disabled}
           required
           type="email"
           name="email"
@@ -60,7 +60,7 @@ export default function SignIn() {
           placeholder="E-mail"
         />
         <Input
-          disabled={sending}
+          disabled={disabled}
           required
           type="password"
           name="password"
@@ -69,8 +69,8 @@ export default function SignIn() {
           placeholder="Password"
         />
 
-        <Button type="submit" disabled={sending}>
-          {sending ? <Loading /> : "Log In"}
+        <Button type="submit" disabled={disabled}>
+          {disabled ? <Loading /> : "Log In"}
         </Button>
 
         <Link to="/sign-up">
@@ -122,7 +122,7 @@ const TextLinkr = styled.div`
   }
   p {
     margin: 0 40px;
-    font-size: 38px;
+    font-size: 36px;
     font-weight: 700;
     animation: fadeIn 2s;
   }
