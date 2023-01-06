@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
 import ProfilePic from "../images/profilepic.png";
-import urlMetaData from "url-metadata";
+//import urlMetaData from "url-metadata";
 import { getPosts } from "../services/linkrAPI.jsx";
 
 export default function Post() {
@@ -16,7 +16,7 @@ export default function Post() {
                 },
               ],
             }); */
-            /*
+  /*
   const linkInfo = { title: "", url: "", image: "", description: "" };
 
   useEffect(() => {

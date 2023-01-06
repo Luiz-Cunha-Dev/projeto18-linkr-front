@@ -3,6 +3,7 @@ import React from "react";
 import CreatePost from "../components/CreatePost.jsx";
 import Header from "../components/header.jsx";
 import Post from "../components/Post.jsx";
+import Trending from "../components/Trending.jsx";
 
 export default function Timeline() {
   return (
@@ -11,6 +12,7 @@ export default function Timeline() {
       <h1>timeline</h1>
       <CreatePost />
       <Post />
+      <Trending/>
 
     </Wraper>
   );
