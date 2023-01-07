@@ -10,7 +10,7 @@ function getToken() {
 }
 
 function login(body) {
-  return axios.post(`${BASE_URL}/sign-in`, body);
+  return axios.post(`${BASE_URL}signin`, body);
 }
 
 function logout() {
@@ -18,7 +18,7 @@ function logout() {
 }
 
 function signUp(body) {
-  return axios.post(`${BASE_URL}/sign-up`, body);
+  return axios.post(`${BASE_URL}signup`, body);
 }
 
 function getUser() {
@@ -28,11 +28,11 @@ function getUser() {
 }
 
 function createPost(body) {
-  return axios.post(`${BASE_URL}/timeline`, body);
+  return axios.post(`${BASE_URL}timeline`, body);
 }
 
 function getPosts() {
-  return axios.get(`${BASE_URL}/timeline`);
+  return axios.get(`${BASE_URL}timeline`);
 }
 
 export { getToken, login, logout, signUp, getUser, createPost, getPosts };

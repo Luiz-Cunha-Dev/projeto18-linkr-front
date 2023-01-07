@@ -45,12 +45,12 @@ export default function SignIn() {
     
     setDisabled(true);
 
-    const body = { email: email, password: password };
+    const body = { email, password };
 
     login(body)
       .then((res) => {
+        console.log(res);
         localStorage.setItem("linkr", JSON.stringify({email, token: res.data.token}));
-        
         loadUser(); 
         navigate("/timeline");
       })
