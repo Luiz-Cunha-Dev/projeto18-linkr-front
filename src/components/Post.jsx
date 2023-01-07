@@ -2,48 +2,11 @@ import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
 import ProfilePic from "../images/profilepic.png";
-//import urlMetaData from "url-metadata";
 import { getPosts } from "../services/linkrAPI.jsx";
 import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
 
 export default function Post() {
-  /* return res.json({
-              data: [
-                {
-                  title: metadata.title,
-                  url: metadata.url,
-                  image: metadata.image,
-                  description: metadata.description,
-                },
-              ],
-            }); */
-  /*
-  const linkInfo = { title: "", url: "", image: "", description: "" };
-
-  useEffect(() => {
-    getPosts()
-      .then((res) => {
-        urlMetaData("https://www.youtube.com/").then(
-          function (metadata) {
-            console.log(metadata);
-            linkInfo.title = metadata.title;
-            linkInfo.url = metadata.url;
-            linkInfo.image = metadata.image;
-            linkInfo.description = metadata.description;
-          },
-          function (error) {
-            console.log(error);
-          }
-        );
-      })
-
-      .catch((err) => {
-        alert(`Erro: ${err.message}`);
-      });
-  }, []);
-
-  */
-
+  
   const [curtida, setCurtida] = useState("IoHeartOutline");
 
   function curtir() {
