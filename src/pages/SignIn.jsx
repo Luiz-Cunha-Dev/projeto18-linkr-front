@@ -50,7 +50,8 @@ export default function SignIn() {
     login(body)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("linkr", JSON.stringify({email, token: res.data.token}));
+        localStorage.setItem("localToken", res.data);
+        localStorage.setItem("linkr", JSON.stringify({email, token: res.data}));
         loadUser(); 
         navigate("/timeline");
       })

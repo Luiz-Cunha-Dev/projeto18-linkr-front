@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import {FiChevronDown, FiChevronUp, FiSearch} from "react-icons/fi"
 import {DebounceInput} from 'react-debounce-input';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import userContext from "../contexts/userContexts";
 
 export default function Header() {
+
+    const navigate = useNavigate()
     const [logoutButton, setLogoutButton] = useState(false)
     const [search, setSearch] = useState("")
+    const token = localStorage.getItem("localToken")
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    };
 
     function searchUsers(){
       if(search !== ""){
         const URL = "https://api-linkr-0kjk.onrender.com/users"
 
-        axios.get(URL, {name: search})
+        axios.get(URL, {username: search})
         .then(res => {
           console.log(res);
         })
@@ -22,21 +32,41 @@ export default function Header() {
       }
     }
 
+    function logout() {
+      if (!window.confirm("Vocẽ esta saindo da sua conta")) {
+        return
+      }
+  
+      const URL = "https://api-linkr-0kjk.onrender.com/logout"
+  
+      axios.delete(URL, config)
+        .then(res => {
+          console.log(res);
+          localStorage.removeItem("localToken");
+          localStorage.removeItem("linkr");
+          navigate("/")
+        })
+        .catch(err => {
+          console.log(err);
+          alert(err.response.data)
+        })
+    }
+
     return (
       <>
   <HeaderStyle state={logoutButton !== true ? "none" : "initial"}>
 <div className="logo">linkr</div>
-<DebounceInput className="debounceInput" placeholder="Search for people" minLength={3} debounceTimeout={300} onChange={event => setSearch(event.target.value)} />
+<DebounceInput className="debounceInput" placeholder="Search for people" minLength={3} debounceTimeout={300} value={search} onChange={event => setSearch(event.target.value)} />
 <FiSearch onClick={searchUsers} className="search"/>
 <div className="rigth">
     {logoutButton !== true ?  <FiChevronDown onClick={() => setLogoutButton(!logoutButton)} className="react-icons" /> :  <FiChevronUp onClick={() => setLogoutButton(!logoutButton)} className="react-icons" />}
 
     <img src="https://akamai.sscdn.co/letras/215x215/fotos/e/a/7/6/ea76e83f5ba5d48f5d685d6270f0c71e.jpg" alt="picture" />
     </div>
-    <div  className="logout">Logout</div>
+    <div onClick={logout} className="logout">Logout</div>
   </HeaderStyle>
   <SearchBar>
-  <DebounceInput className="debounceInput" placeholder="Search for people" minLength={3} debounceTimeout={300} onChange={event => setSearch(event.target.value)} />
+  <DebounceInput className="debounceInput" placeholder="Search for people" minLength={3} debounceTimeout={300} value={search} onChange={event => setSearch(event.target.value)} />
   <FiSearch onClick={searchUsers} className="searchIcon"/>
   </SearchBar>
   </>
@@ -94,6 +124,7 @@ line-height: 50px;
 }
 }
 .logout{
+  z-index: 2;
 padding-left: 37px;
 padding-top: 9px;
     width: 135px;
@@ -148,6 +179,7 @@ color: #C6C6C6;
   width: 21px;
   color: #C6C6C6;
   z-index: 1;
+  cursor: pointer;
   @media (max-width: 1228px){
   left: 445px;
 }
@@ -187,6 +219,7 @@ color: #C6C6C6;
   width: 21px;
   color: #C6C6C6;
   z-index: 1;
+  cursor: pointer;
   @media (min-width: 614px){
     display: none;
 }

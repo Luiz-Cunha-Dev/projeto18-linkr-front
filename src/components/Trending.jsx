@@ -6,7 +6,7 @@ export default function Trending() {
   return (
     <Wraper>
       <Content>
-        <ul class="separator">
+        <ul className="separator">
           <li>trending</li>
         </ul>
         <div>
