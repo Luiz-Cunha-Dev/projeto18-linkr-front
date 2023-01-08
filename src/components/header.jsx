@@ -87,6 +87,7 @@ export default function Header() {
       .catch((err) => {
         console.log(err);
         alert(err.response.data);
+        navigate("/");
       });
   }
 

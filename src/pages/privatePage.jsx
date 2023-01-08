@@ -34,7 +34,7 @@ export default function Timeline() {
       <Wraper>
         <div className="title">
           <img src={userData.pictureUrl} alt="profilePicture" />
-          <h1>{userData.username}</h1>
+          <h1>{userData.username}’s posts</h1>
         </div>
         <div className="principal">
           <div className="posts">
