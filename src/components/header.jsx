@@ -1,16 +1,16 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FiChevronDown, FiChevronUp, FiSearch } from "react-icons/fi";
 import { DebounceInput } from "react-debounce-input";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import userContext from "../contexts/userContexts";
+import profilePicture from "../images/userPicture.png"
 
 export default function Header() {
   const navigate = useNavigate();
   const [logoutButton, setLogoutButton] = useState(false);
   const [search, setSearch] = useState("");
-  const [userPicture, setUserPicture] = useState("https://assets.stickpng.com/images/585e4beacb11b227491c3399.png")
+  const [userPicture, setUserPicture] = useState(profilePicture)
   const [users, setUsers] = useState([])
   const token = localStorage.getItem("localToken");
   const config = {
@@ -57,12 +57,14 @@ export default function Header() {
       axios
         .post(URL, {username:search})
         .then((res) => {
-          console.log(search);
+          setUsers(res.data)
           console.log(res);
         })
         .catch((err) => {
           console.log(err);
         });
+    }else{
+      setUsers([])
     }
   }, [search]);
 
@@ -89,7 +91,7 @@ export default function Header() {
 
   return (
     <>
-      <HeaderStyle state={logoutButton !== true ? "none" : "initial"}>
+      <HeaderStyle state={logoutButton !== true ? "none" : "initial"} heigth={users.length === 0 ? "none" : "initial"}>
         <div className="logo">linkr</div>
         <DebounceInput
           className="debounceInput"
@@ -100,6 +102,13 @@ export default function Header() {
           onChange={(event) => setSearch(event.target.value)}
         />
         <FiSearch onClick={searchUsers} className="search" />
+        <div className="users">
+          {users.map(u => 
+            <div className="user">
+            <img src={u.pictureUrl} alt="profilePicture" />
+            <span>{u.username}</span>
+          </div>)}
+        </div>
         <div className="rigth">
           {logoutButton !== true ? (
             <FiChevronDown
@@ -221,6 +230,7 @@ const HeaderStyle = styled.div`
     background: #ffffff;
     border-radius: 8px;
     padding-left: 14px;
+    z-index: 1;
     ::placeholder {
       font-family: "Lato";
       font-style: normal;
@@ -249,6 +259,47 @@ const HeaderStyle = styled.div`
     }
     @media (max-width: 614px) {
       display: none;
+    }
+  }
+  .users{
+    position: absolute;
+    left: 460px;
+    top: 45px;
+    width: 563px;
+    display: ${props => props.heigth};
+background: #E7E7E7;
+border-radius: 8px;
+padding-top: 30px;
+padding-bottom: 7px;
+padding-left: 17px;
+@media (max-width: 1228px) {
+      width: 300px;
+      left: 180px;
+    }
+@media (max-width: 614px) {
+    left: 0px;
+    top: 115px;
+    width: 90%;
+    margin-left: 5%;
+    }
+    .user{
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      img{
+        width: 39px;
+        border-radius: 304px;
+        margin-right: 12px;
+      }
+      span{
+        font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 23px;
+color: #515151;
+      }
+
     }
   }
 `;
@@ -287,4 +338,5 @@ color: #C6C6C6;
   @media (min-width: 614px){
     display: none;
 }
-  `;
+}
+`;
