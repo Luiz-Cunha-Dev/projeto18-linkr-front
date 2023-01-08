@@ -16,7 +16,7 @@ export default function CreatePost() {
     e.preventDefault();
     setIsLoading(true);
 
-    const body = { link: form.link, comment: form.comments };
+    const body = { link: form.link, comments: form.comments };
 
     createPost(body)
       .then((res) => {
