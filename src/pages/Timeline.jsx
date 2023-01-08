@@ -14,9 +14,6 @@ export default function Timeline() {
           <h1 className="h1_top">timeline</h1>
           <CreatePost />
           <Post />
-          <Post />
-          <Post />
-          <Post />
         </Scrolling>
         <Trending />
       </MainPage>

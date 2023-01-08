@@ -5,9 +5,18 @@ import ProfilePic from "../images/profilepic.png";
 import { getPosts } from "../services/linkrAPI.jsx";
 import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
 import { ReactTagify } from "react-tagify";
+import { useNavigate } from "react-router-dom";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
+  const [posts, setPost] = useState([])
+  const navigate = useNavigate()
+
+  useEffect(()=>{
+    getPosts().then((resp)=>{
+      setPost(resp.data)
+    }).catch((err)=>console.log(err))
+  },[posts])
 
   function curtir() {
     console.log("entrou em curtir");
@@ -21,9 +30,12 @@ export default function Post() {
   }
 
   return (
-    <Wraper>
-      <ProfilePicture>
-        <img src={ProfilePic} alt="" />
+    
+    <>
+    {posts.map((obj)=>
+          <Wraper>
+          <ProfilePicture>
+        <img src={obj.userImage} alt="" />
         <div onClick={curtir}>
           {curtida === "IoHeart" ? (
             <IoHeart size={30} />
@@ -34,7 +46,7 @@ export default function Post() {
       </ProfilePicture>
       <Content>
         <div className="name_icons">
-          <h1>Name</h1>
+          <h1>{obj.userName}</h1>
           <div>
             <IoPencil size={25} className="Pencil"/>
             <IoTrash size={25} className="Trash"/>
@@ -45,20 +57,22 @@ export default function Post() {
         tagClicked={(tag) => alert(tag)}
         >
         <h2>
-          Muito maneiro esse tutorial de Material UI com React, deem uma olhada!
-          #react #material
+          {obj.postComment}
         </h2>
         </ReactTagify>
-        <Link>
+        <a href={obj.linkInfo.linkUrl}><Link>
           <div>
-            <h1>title</h1>
-            <h2>description</h2>
-            <h3>url</h3>
+            <h1>{obj.linkInfo.linkTitle}</h1>
+            <h2>{obj.linkInfo.linkDescription}</h2>
+            <h3>{obj.linkInfo.linkUrl}</h3>
           </div>
-          <img src="image" alt="" />
-        </Link>
+          <img src={obj.linkInfo.linkImage} alt="" />
+        </Link></a>
       </Content>
-    </Wraper>
+      </Wraper>
+        )}
+        </>
+    
   );
 }
 
@@ -128,16 +142,36 @@ const Link = styled.div`
   display: flex;
   width: 503px;
   height: 155px;
-
+  margin-top: 15px;
+  border: 1px solid #4D4D4D;
+  border-radius: 10px;
   h1 {
     font-family: "Lato", sans-serif;
     font-weight: 400px;
-    font-size: 19px;
+    font-size: 16px;
     color: #ffffff;
+    padding-left: 10px;
+    padding-top: 10px;
   }
 
+  h2{
+    font-size: 11px;
+    padding-left: 10px;
+    padding-top: 10px;
+  }
+  h3{
+    font-size: 11px;
+    padding-left: 10px;
+    padding-top: 10px;
+    color: #CECECE;
+  }
   div {
     display: flex;
     flex-direction: column;
+  }
+  img{
+    width: 153.44px;
+    height: 155px;
+    border-radius:0px 10px 10px 0px;
   }
 `;
