@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { FiChevronDown, FiChevronUp, FiSearch } from "react-icons/fi";
 import { DebounceInput } from "react-debounce-input";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profilePicture from "../images/userPicture.png"
+import { IoReload } from "react-icons/io5";
 
 export default function Header() {
   const navigate = useNavigate();
@@ -92,7 +93,9 @@ export default function Header() {
   return (
     <>
       <HeaderStyle state={logoutButton !== true ? "none" : "initial"} heigth={users.length === 0 ? "none" : "initial"}>
+        <Link to="/timeline">
         <div className="logo">linkr</div>
+        </Link>
         <DebounceInput
           className="debounceInput"
           placeholder="Search for people"
@@ -104,10 +107,13 @@ export default function Header() {
         <FiSearch onClick={searchUsers} className="search" />
         <div className="users">
           {users.map(u => 
+          <Link  to={`/user/${u.id}`} onClick={() => Location.reload()}>
             <div className="user">
             <img src={u.pictureUrl} alt="profilePicture" />
             <span>{u.username}</span>
-          </div>)}
+          </div>
+          </Link>
+          )}
         </div>
         <div className="rigth">
           {logoutButton !== true ? (

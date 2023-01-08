@@ -10,7 +10,7 @@ import Timeline from "./pages/Timeline.jsx";
 
 export default function App() {
   const [user, setUser] = useState({});
-  const [token, setToken] = useState(localStorage.getItem("localToken"))
+  const [token, setToken] = useState(localStorage.getItem("localToken"));
 
   return (
     <>
@@ -21,14 +21,7 @@ export default function App() {
             <Route path="/" element={<SignIn />} />
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/timeline" element={<Timeline />} />
-            <Route
-              path="/user"
-              element={
-                <PrivatePage>
-                  <h1>UserPage</h1>
-                </PrivatePage>
-              }
-            />
+            <Route path="/user/:id" element={<PrivatePage />} />
           </Routes>
         </BrowserRouter>
       </userContext.Provider>
