@@ -231,6 +231,7 @@ const HeaderStyle = styled.div`
     border-radius: 8px;
     padding-left: 14px;
     z-index: 1;
+    border: thin;
     ::placeholder {
       font-family: "Lato";
       font-style: normal;
@@ -277,10 +278,9 @@ padding-left: 17px;
       left: 180px;
     }
 @media (max-width: 614px) {
-    left: 0px;
-    top: 115px;
+    left: 5%;
+    top: 110px;
     width: 90%;
-    margin-left: 5%;
     }
     .user{
       display: flex;
@@ -311,11 +311,14 @@ const SearchBar = styled.div`
   position: relative;
   margin-bottom: 19px;
   .debounceInput{
-  width: 90%;
+  width: 100%;
 height: 45px;
 background: #FFFFFF;
 border-radius: 8px;
+border: thin;
 padding-left: 14px;
+margin-left: 5%;
+margin-right: 5%;
 ::placeholder{
   font-family: 'Lato';
 font-style: normal;
