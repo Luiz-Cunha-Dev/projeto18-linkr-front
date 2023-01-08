@@ -26,16 +26,16 @@ export default function SignIn() {
   function loadUser() {
     getUser()
       .then((res) => {
-        const { email, password} = JSON.parse(localStorage.getItem("linkr"));
+        const { email, token} = JSON.parse(localStorage.getItem("linkr"));
         const { name, profilePic, id} = res.data;
         const dateLogin = new Date();
-        const newUser = { email, password, name, profilePic, id, dateLogin };
-
+        const newUser = { email, token, name, profilePic, id, dateLogin };
+        setUser(newUser);
         localStorage.setItem("linkr", JSON.stringify(newUser));
       })
       .catch((err) => {
         localStorage.removeItem("linkr");
-        alert("Não foi possível carregar o usuário. Tente novamente.");
+        
         console.log(err);
       });
   }
@@ -49,8 +49,6 @@ export default function SignIn() {
 
     login(body)
       .then((res) => {
-        console.log(res);
-        localStorage.setItem("localToken", res.data);
         localStorage.setItem("linkr", JSON.stringify({email, token: res.data}));
         loadUser(); 
         navigate("/timeline");
