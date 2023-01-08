@@ -27,8 +27,8 @@ function getUser() {
   return axios.get(`${BASE_URL}users`, config);
 }
 
-function createPost(body) {
-  return axios.post(`${BASE_URL}timeline`, body);
+function createPost(body, config) {
+  return axios.post(`${BASE_URL}timeline`, body, config);
 }
 
 function getPosts() {

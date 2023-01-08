@@ -7,6 +7,12 @@ import { createPost } from "../services/linkrAPI.jsx";
 export default function CreatePost() {
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({ link: "", comments: "" });
+  const token = localStorage.getItem("localToken");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   function handleForm(e) {
     const { name, value } = e.target;
@@ -18,14 +24,16 @@ export default function CreatePost() {
 
     const body = { link: form.link, comments: form.comments };
 
-    createPost(body)
+    createPost(body, config)
       .then((res) => {
         setIsLoading(false);
+        console.log(config)
       })
       .catch((err) => {
         setIsLoading(false);
         console.log(err);
         setForm({ link: "", comments: "" });
+        console.log(config)
         alert("Houve um erro ao publicar seu link");
       });
   }
