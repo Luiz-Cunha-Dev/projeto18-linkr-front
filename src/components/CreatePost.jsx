@@ -74,6 +74,7 @@ const Wraper = styled.div`
   border-radius: 16px;
   display: flex;
   flex-direction: row;
+  margin-bottom: 29px;
 `;
 
 const ProfilePicture = styled.div`

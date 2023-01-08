@@ -9,11 +9,17 @@ export default function Timeline() {
   return (
     <Wraper>
       <Header />
-      <h1>timeline</h1>
-      <CreatePost />
-      <Post />
-      <Trending/>
-
+      <MainPage>
+        <Scrolling>
+          <h1 className="h1_top">timeline</h1>
+          <CreatePost />
+          <Post />
+          <Post />
+          <Post />
+          <Post />
+        </Scrolling>
+        <Trending />
+      </MainPage>
     </Wraper>
   );
 }
@@ -23,4 +29,15 @@ const Wraper = styled.div`
   color: #ffffff;
   font-size: 43px;
   font-weight: 700px;
+  margin-top: 72px;
+  .h1_top{
+    margin-bottom: 43px;
+  }
 `;
+
+const MainPage = styled.div`
+display: flex;
+justify-content: center;
+`;
+
+const Scrolling = styled.div``;
