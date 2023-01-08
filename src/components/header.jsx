@@ -163,6 +163,8 @@ const HeaderStyle = styled.div`
   padding-right: 17px;
   background: #151515;
   position: relative;
+  position: fixed;
+  top: 0;
   @media (max-width: 614px) {
     padding-left: 17px;
     padding-right: 15px;

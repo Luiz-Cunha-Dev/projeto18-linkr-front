@@ -33,6 +33,8 @@ const Wraper = styled.div`
   border-radius: 16px;
   display: flex;
   flex-direction: row;
+  margin-top: 83px;
+  margin-left: 25px;
   @media (max-width: 614px) {
       display: none;
     }
