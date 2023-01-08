@@ -26,6 +26,7 @@
     "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.6.1",
     "react-scripts": "^5.0.1",
+    "react-tagify": "^0.1.4",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
     "resolve-url": "^0.2.1",

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ProfilePic from "../images/profilepic.png";
 import { getPosts } from "../services/linkrAPI.jsx";
 import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
+import { ReactTagify } from "react-tagify";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
@@ -39,10 +40,15 @@ export default function Post() {
             <IoTrash size={25} className="Trash"/>
           </div>
         </div>
+        <ReactTagify 
+        colors={"white"}
+        tagClicked={(tag) => alert(tag)}
+        >
         <h2>
           Muito maneiro esse tutorial de Material UI com React, deem uma olhada!
           #react #material
         </h2>
+        </ReactTagify>
         <Link>
           <div>
             <h1>title</h1>
