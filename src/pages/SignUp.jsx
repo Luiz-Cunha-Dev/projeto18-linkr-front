@@ -158,7 +158,7 @@ const TextLinkr = styled.div`
     100% {
       opacity: 1;
     }
-
+  }
   @media (max-width: 614px){
     width: 100%;
     height: 50%;
@@ -172,7 +172,7 @@ const TextLinkr = styled.div`
       font-size: 28px;
       margin: 0 10px;
     }
-    
+  }
 `;
 
 const Form = styled.form`
@@ -193,6 +193,7 @@ const Form = styled.form`
     100% {
       opacity: 1;
     }
+  }
 `;
 
 const Input = styled.input`
