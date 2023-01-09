@@ -28,6 +28,7 @@ export default function CreatePost() {
     createPost(body, config)
       .then((res) => {
         setIsLoading(false);
+        setForm({ link: "", comments: "" });
       })
       .catch((err) => {
         setIsLoading(false);
