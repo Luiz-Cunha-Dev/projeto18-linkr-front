@@ -31,6 +31,7 @@ export default function SignIn() {
         const dateLogin = new Date();
         const newUser = { email, token, name, profilePic, id, dateLogin };
         setUser(newUser);
+
         localStorage.setItem("linkr", JSON.stringify(newUser));
       })
       .catch((err) => {
@@ -53,6 +54,7 @@ export default function SignIn() {
           "linkr",
           JSON.stringify({ email, token: res.data })
         );
+        localStorage.setItem("localToken", res.data);
         loadUser();
         navigate("/timeline");
       })
