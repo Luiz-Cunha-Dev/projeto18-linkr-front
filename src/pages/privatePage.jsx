@@ -40,7 +40,9 @@ export default function Timeline() {
           <div className="posts">
             <Post  />
           </div>
+          <div className="trending">
           <Trending />
+          </div>
         </div>
       </Wraper>
     </>
@@ -50,11 +52,13 @@ export default function Timeline() {
 const Wraper = styled.div`
   display: flex;
   flex-direction: column;
-  padding-left: 15%;
-  padding-top: 30px;
+  align-items: center;
+  padding-top: 72px;
   .title {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 950px;
     @media (max-width: 614px) {
       align-items: flex-start;
       margin-left: -30px;
@@ -76,9 +80,12 @@ const Wraper = styled.div`
   }
   .principal {
     display: flex;
-    margin-top: 41px;
+    margin-top: 41px;;
     .posts {
       margin-right: 25px;
+    }
+    .trending{
+      margin-top: -85px;
     }
   }
 `;
