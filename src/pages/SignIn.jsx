@@ -26,8 +26,8 @@ export default function SignIn() {
   function loadUser() {
     getUser()
       .then((res) => {
-        const { email, token} = JSON.parse(localStorage.getItem("linkr"));
-        const { name, profilePic, id} = res.data;
+        const { email, token } = JSON.parse(localStorage.getItem("linkr"));
+        const { name, profilePic, id } = res.data;
         const dateLogin = new Date();
         const newUser = { email, token, name, profilePic, id, dateLogin };
         setUser(newUser);
@@ -35,22 +35,25 @@ export default function SignIn() {
       })
       .catch((err) => {
         localStorage.removeItem("linkr");
-        
+
         console.log(err);
       });
   }
 
   function loginSubmit(e) {
     e.preventDefault();
-    
+
     setDisabled(true);
 
     const body = { email, password };
 
     login(body)
       .then((res) => {
-        localStorage.setItem("linkr", JSON.stringify({email, token: res.data}));
-        loadUser(); 
+        localStorage.setItem(
+          "linkr",
+          JSON.stringify({ email, token: res.data })
+        );
+        loadUser();
         navigate("/timeline");
       })
       .catch((err) => {
@@ -159,7 +162,7 @@ const TextLinkr = styled.div`
     }
   }
 
-  @media (max-width: 614px){
+  @media (max-width: 614px) {
     width: 100%;
     height: 50%;
     margin: 0;
@@ -250,6 +253,3 @@ const LinkTo = styled.h5`
     text-decoration: underline;
   }
 `;
-
-
-

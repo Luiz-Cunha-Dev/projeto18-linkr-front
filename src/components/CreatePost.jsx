@@ -27,13 +27,11 @@ export default function CreatePost() {
     createPost(body, config)
       .then((res) => {
         setIsLoading(false);
-        console.log(config)
       })
       .catch((err) => {
         setIsLoading(false);
         console.log(err);
         setForm({ link: "", comments: "" });
-        console.log(config)
         alert("Houve um erro ao publicar seu link");
       });
   }
