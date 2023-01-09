@@ -5,7 +5,7 @@ import { DebounceInput } from "react-debounce-input";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import profilePicture from "../images/userPicture.png"
-import { IoReload } from "react-icons/io5";
+
 
 export default function Header() {
   const navigate = useNavigate();
@@ -13,15 +13,18 @@ export default function Header() {
   const [search, setSearch] = useState("");
   const [userPicture, setUserPicture] = useState(profilePicture)
   const [users, setUsers] = useState([])
-  const token = localStorage.getItem("localToken");
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
+
 
   useEffect(() => {
     const URL = "https://api-linkr-0kjk.onrender.com/users/me";
+
+    const token = localStorage.getItem("localToken")
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
     axios
       .get(URL, config)
@@ -74,6 +77,14 @@ export default function Header() {
       return;
     }
 
+    const token = localStorage.getItem("localToken");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     const URL = "https://api-linkr-0kjk.onrender.com/logout";
 
     axios
@@ -110,7 +121,7 @@ export default function Header() {
           {users.map(u => 
           <Link  to={`/user/${u.id}`} onClick={() => Location.reload()}>
             <div className="user">
-            <img src={u.pictureUrl} alt="profilePicture" />
+            <img src={u.pictureUrl} alt="profile" />
             <span>{u.username}</span>
           </div>
           </Link>
@@ -131,7 +142,7 @@ export default function Header() {
 
           <img
             src={userPicture}
-            alt="picture"
+            alt="user"
           />
         </div>
         <div onClick={logout} className="logout">
@@ -297,6 +308,7 @@ padding-left: 17px;
       margin-bottom: 16px;
       img{
         width: 39px;
+        height: 39px;
         border-radius: 304px;
         margin-right: 12px;
       }
@@ -316,7 +328,7 @@ const SearchBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 80px;
   position: relative;
   margin-bottom: 19px;
   .debounceInput{

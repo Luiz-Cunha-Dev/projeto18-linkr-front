@@ -9,7 +9,7 @@ import axios from "axios";
 export default function Timeline() {
   const { id } = useParams();
   const [userData, setUserData] = useState({});
-  const [userPosts, setUserPosts] = useState([]);
+  // const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     const URL = `https://api-linkr-0kjk.onrender.com/user/${id}`;
@@ -26,7 +26,7 @@ export default function Timeline() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [id]);
 
   return (
     <>
