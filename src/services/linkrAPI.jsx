@@ -1,7 +1,5 @@
 import axios from "axios";
-const BASE_URL =
-  'https://api-linkr-0kjk.onrender.com/';
-
+const BASE_URL = "https://api-linkr-0kjk.onrender.com/";
 
 function getToken() {
   const auth = JSON.parse(localStorage.getItem("linkr"));
@@ -35,4 +33,26 @@ function getPosts() {
   return axios.get(`${BASE_URL}timeline`);
 }
 
-export { getToken, login, logout, signUp, getUser, createPost, getPosts };
+function deletePost(postId) {
+  const token = localStorage.getItem("localToken");
+
+  return axios.delete(`${BASE_URL}timeline`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      postId,
+    },
+  });
+}
+
+export {
+  getToken,
+  login,
+  logout,
+  signUp,
+  getUser,
+  createPost,
+  getPosts,
+  deletePost,
+};
