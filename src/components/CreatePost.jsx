@@ -18,6 +18,7 @@ export default function CreatePost() {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   }
+
   function postSubmit(e) {
     e.preventDefault();
     setIsLoading(true);
