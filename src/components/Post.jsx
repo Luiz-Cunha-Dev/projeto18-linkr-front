@@ -1,21 +1,18 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
-import ProfilePic from "../images/profilepic.png";
 import { deletePost, getPosts } from "../services/linkrAPI.jsx";
 import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
 import { ReactTagify } from "react-tagify";
-import { useNavigate } from "react-router-dom";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const [posts, setPost] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     getPosts()
-      .then((resp) => {
-        setPost(resp.data);
+      .then((res) => {
+        setPost(res.data);
       })
       .catch((err) => console.log(err));
   }, [posts]);
@@ -31,12 +28,11 @@ export default function Post() {
     }
   }
 
-  function deleteOnePost() {
-    alert("delete clicado");
-    const postId = posts.postid;
+  function deleteOnePost(postid) {
 
-    deletePost(postId)
+    deletePost(postid)
       .then((res) => {
+        getPosts();
         console.log(res);
       })
       .catch((err) => {
