@@ -10,11 +10,12 @@ import Timeline from "./pages/Timeline.jsx";
 
 export default function App() {
   const [user, setUser] = useState({});
+  const [modalIsOpen, setIsOpen] = useState(false);
 
   return (
     <>
       <GlobalStyle />
-      <userContext.Provider value={{ user, setUser }}>
+      <userContext.Provider value={{ user, setUser, modalIsOpen, setIsOpen }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignIn />} />

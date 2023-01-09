@@ -4,10 +4,14 @@ import styled from "styled-components";
 import { deletePost, getPosts } from "../services/linkrAPI.jsx";
 import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
 import { ReactTagify } from "react-tagify";
+import ModalJsx from "./Modal.jsx";
+import { useContext } from "react";
+import userContext from "../contexts/userContexts.jsx";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const [posts, setPost] = useState([]);
+  const {modalIsOpen, setIsOpen} = useContext(userContext)
 
   useEffect(() => {
     getPosts()
@@ -36,6 +40,7 @@ export default function Post() {
   function deleteOnePost(postid) {
     deletePost(postid)
       .then((res) => {
+        setIsOpen(true)
         getPosts();
         console.log(res);
       })
@@ -43,6 +48,7 @@ export default function Post() {
         console.log(err);
       });
   }
+
   if (posts.length === 0) {
     return (
       <>
@@ -74,6 +80,8 @@ export default function Post() {
                     className="Trash"
                     onClick={() => deleteOnePost(obj.postId)}
                   />
+                  <ModalJsx
+                    isOpen={true}/>
                 </div>
               </div>
               <ReactTagify colors={"white"} tagClicked={(tag) => alert(tag)}>
