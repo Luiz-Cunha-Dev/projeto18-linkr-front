@@ -297,6 +297,7 @@ padding-left: 17px;
       margin-bottom: 16px;
       img{
         width: 39px;
+        height: 39px;
         border-radius: 304px;
         margin-right: 12px;
       }
@@ -316,7 +317,7 @@ const SearchBar = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 80px;
   position: relative;
   margin-bottom: 19px;
   .debounceInput{
