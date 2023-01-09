@@ -1,9 +1,10 @@
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState} from "react";
+// import { useContext } from "react";
 import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { login, getUser } from "../services/linkrAPI.jsx";
-import userContext from "../contexts/userContexts.jsx";
+// import userContext from "../contexts/userContexts.jsx";
 import Loading from "../commons/Loading.jsx";
 import { Container } from "../global/fonts.js";
 
@@ -14,11 +15,11 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [disabled, setDisabled] = useState(false);
 
-  const { user, setUser } = useContext(userContext);
+  // const { user, setUser } = useContext(userContext);
 
   useEffect(() => {
     if (localStorage.getItem("linkr") !== null) {
-      setUser(JSON.parse(localStorage.getItem("linkr")));
+      // setUser(JSON.parse(localStorage.getItem("linkr")));
       navigate("/timeline");
     }
   }, []);
@@ -30,7 +31,7 @@ export default function SignIn() {
         const { name, profilePic, id } = res.data;
         const dateLogin = new Date();
         const newUser = { email, token, name, profilePic, id, dateLogin };
-        setUser(newUser);
+        // setUser(newUser);
 
         localStorage.setItem("linkr", JSON.stringify(newUser));
       })

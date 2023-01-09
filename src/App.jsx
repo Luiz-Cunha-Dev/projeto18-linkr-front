@@ -10,7 +10,6 @@ import Timeline from "./pages/Timeline.jsx";
 
 export default function App() {
   const [user, setUser] = useState({});
-  const [token, setToken] = useState(localStorage.getItem("localToken"));
 
   return (
     <>

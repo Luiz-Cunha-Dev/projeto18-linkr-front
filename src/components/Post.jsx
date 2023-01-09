@@ -42,8 +42,8 @@ export default function Post() {
 
   return (
     <>
-      {posts.map((obj) => (
-        <Wraper>
+      {posts.map((obj, key) => (
+        <Wraper key={key}>
           <ProfilePicture>
             <img src={obj.userImage} alt="" />
             <div onClick={curtir}>
