@@ -14,7 +14,12 @@ export default function Post() {
       .then((res) => {
         setPost(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert(
+          "An error occured while trying to fetch the posts, please refresh the page"
+        );
+        console.log(err);
+      });
   }, [posts]);
 
   function curtir() {
@@ -29,7 +34,6 @@ export default function Post() {
   }
 
   function deleteOnePost(postid) {
-
     deletePost(postid)
       .then((res) => {
         getPosts();
@@ -39,51 +43,58 @@ export default function Post() {
         console.log(err);
       });
   }
-
-  return (
-    <>
-      {posts.map((obj, key) => (
-        <Wraper key={key}>
-          <ProfilePicture>
-            <img src={obj.userImage} alt="" />
-            <div onClick={curtir}>
-              {curtida === "IoHeart" ? (
-                <IoHeart size={30} />
-              ) : (
-                <IoHeartOutline size={30} />
-              )}
-            </div>
-          </ProfilePicture>
-          <Content>
-            <div className="name_icons">
-              <h1>{obj.userName}</h1>
-              <div>
-                <IoPencil size={25} className="Pencil" />
-                <IoTrash
-                  size={25}
-                  className="Trash"
-                  onClick={() => deleteOnePost(obj.postId)}
-                />
+  if (posts.length === 0) {
+    return (
+      <>
+        <h1>There are no posts yet</h1>
+      </>
+    );
+  } else {
+    return (
+      <>
+        {posts.map((obj, key) => (
+          <Wraper key={key}>
+            <ProfilePicture>
+              <img src={obj.userImage} alt="" />
+              <div onClick={curtir}>
+                {curtida === "IoHeart" ? (
+                  <IoHeart size={30} />
+                ) : (
+                  <IoHeartOutline size={30} />
+                )}
               </div>
-            </div>
-            <ReactTagify colors={"white"} tagClicked={(tag) => alert(tag)}>
-              <h2>{obj.postComment}</h2>
-            </ReactTagify>
-            <a href={obj.linkInfo.linkUrl}>
-              <Link>
+            </ProfilePicture>
+            <Content>
+              <div className="name_icons">
+                <h1>{obj.userName}</h1>
                 <div>
-                  <h1>{obj.linkInfo.linkTitle}</h1>
-                  <h2>{obj.linkInfo.linkDescription}</h2>
-                  <h3>{obj.linkInfo.linkUrl}</h3>
+                  <IoPencil size={25} className="Pencil" />
+                  <IoTrash
+                    size={25}
+                    className="Trash"
+                    onClick={() => deleteOnePost(obj.postId)}
+                  />
                 </div>
-                <img src={obj.linkInfo.linkImage} alt="" />
-              </Link>
-            </a>
-          </Content>
-        </Wraper>
-      ))}
-    </>
-  );
+              </div>
+              <ReactTagify colors={"white"} tagClicked={(tag) => alert(tag)}>
+                <h2>{obj.postComment}</h2>
+              </ReactTagify>
+              <a href={obj.linkInfo.linkUrl}>
+                <Link>
+                  <div>
+                    <h1>{obj.linkInfo.linkTitle}</h1>
+                    <h2>{obj.linkInfo.linkDescription}</h2>
+                    <h3>{obj.linkInfo.linkUrl}</h3>
+                  </div>
+                  <img src={obj.linkInfo.linkImage} alt="" />
+                </Link>
+              </a>
+            </Content>
+          </Wraper>
+        ))}
+      </>
+    );
+  }
 }
 
 const Wraper = styled.div`
