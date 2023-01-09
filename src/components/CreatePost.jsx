@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import styled from "styled-components";
-import ProfilePic from "../images/profilepic.png";
+import ProfilePic from "../images/userPicture.png";
 import { createPost } from "../services/linkrAPI.jsx";
 
 export default function CreatePost() {
@@ -23,7 +23,7 @@ export default function CreatePost() {
     e.preventDefault();
     setIsLoading(true);
 
-    const body = { link: form.link, comments: form.comments };
+    const body = { link: form.link, comments: form.comments || " " };
 
     createPost(body, config)
       .then((res) => {
@@ -63,6 +63,7 @@ export default function CreatePost() {
               value={form.comments}
               onChange={handleForm}
               disabled={isLoading}
+              required
             />
             <button type="submit" disabled={isLoading}>
               {isLoading ? "Publishing..." : "Publish"}
