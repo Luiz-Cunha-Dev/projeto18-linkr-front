@@ -11,11 +11,12 @@ import GlobalStyle from "./global/globalStyle.js";
 export default function App() {
   const [user, setUser] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [postIdtoDelete, setPostIdtoDelete] = useState();
 
   return (
     <>
       <GlobalStyle />
-      <userContext.Provider value={{ user, setUser, modalIsOpen, setIsOpen }}>
+      <userContext.Provider value={{ user, setUser, modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignIn />} />
