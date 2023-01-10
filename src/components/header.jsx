@@ -149,7 +149,7 @@ export default function Header() {
           Logout
         </div>
       </HeaderStyle>
-      <SearchBar>
+      <SearchBar heigth={users.length === 0 ? "none" : "initial"}>
         <DebounceInput
           className="debounceInput"
           placeholder="Search for people"
@@ -159,6 +159,16 @@ export default function Header() {
           onChange={(event) => setSearch(event.target.value)}
         />
         <FiSearch onClick={searchUsers} className="searchIcon" />
+        <div className="users">
+          {users.map((u, i) => 
+          <Link key={i} to={`/user/${u.id}`} onClick={() => Location.reload()}>
+            <div className="user">
+            <img src={u.pictureUrl} alt="profile" />
+            <span>{u.username}</span>
+          </div>
+          </Link>
+          )}
+        </div>
       </SearchBar>
     </>
   );
@@ -176,6 +186,7 @@ const HeaderStyle = styled.div`
   position: relative;
   position: fixed;
   top: 0;
+  z-index: 3;
   @media (max-width: 614px) {
     padding-left: 17px;
     padding-right: 15px;
@@ -293,14 +304,13 @@ border-radius: 8px;
 padding-top: 30px;
 padding-bottom: 7px;
 padding-left: 17px;
+z-index: 0;
 @media (max-width: 1228px) {
       width: 300px;
       left: 180px;
     }
 @media (max-width: 614px) {
-    left: 5%;
-    top: 110px;
-    width: 90%;
+display: none;
     }
     .user{
       display: flex;
@@ -340,6 +350,7 @@ border: thin;
 padding-left: 14px;
 margin-left: 5%;
 margin-right: 5%;
+z-index: 2;
 ::placeholder{
   font-family: 'Lato';
 font-style: normal;
@@ -357,10 +368,51 @@ color: #C6C6C6;
   left: 85%;
   width: 21px;
   color: #C6C6C6;
-  z-index: 1;
+  z-index: 2;
   cursor: pointer;
   @media (min-width: 614px){
     display: none;
 }
 }
+.users{
+    position: absolute;
+    left: 460px;
+    top: 45px;
+    width: 563px;
+    display: ${props => props.heigth};
+background: #E7E7E7;
+border-radius: 8px;
+padding-top: 30px;
+padding-bottom: 7px;
+padding-left: 17px;
+z-index: 0;
+@media (max-width: 614px) {
+    left: 5%;
+    top: 30px;
+    width: 90%;
+    }
+    @media (min-width: 614px) {
+display: none;
+    }
+    .user{
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+      img{
+        width: 39px;
+        height: 39px;
+        border-radius: 304px;
+        margin-right: 12px;
+      }
+      span{
+        font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 23px;
+color: #515151;
+      }
+
+    }
+  }
 `;

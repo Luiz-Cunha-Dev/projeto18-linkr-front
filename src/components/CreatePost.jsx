@@ -84,6 +84,10 @@ const Wraper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 29px;
+  @media (max-width: 614px) {
+    width: 100%;
+    border-radius: 0px;
+  }
 `;
 
 const ProfilePicture = styled.div`
@@ -95,6 +99,9 @@ const ProfilePicture = styled.div`
     height: 50px;
     border-radius: 50%;
   }
+  @media (max-width: 614px) {
+    display: none;
+  }
 `;
 
 const Content = styled.div`
@@ -102,22 +109,29 @@ const Content = styled.div`
   margin-left: 18px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 614px) {
+margin-left: 15px;
+align-items: center;
+  }
 
   h1 {
     font-family: "Lato", sans-serif;
     font-weight: 300px;
     font-size: 20px;
     color: #707070;
+    @media (max-width: 614px) {
+      font-size: 17px;
+line-height: 20px;
+  }
   }
 `;
 
 const Form = styled.div`
   display: flex;
   flex-direction: column;
-  height: 150px;
 
   input {
-    width: 503px;
+    width: 100%;
     height: 30px;
     padding-left: 12px;
     box-sizing: border-box;
@@ -133,6 +147,11 @@ const Form = styled.div`
     &::placeholder {
       color: #949494;
     }
+    @media (max-width: 614px) {
+      width: 345px;
+      font-size: 13px;
+line-height: 16px;
+  }
   }
 
   input:nth-child(2) {
@@ -152,5 +171,10 @@ const Form = styled.div`
     margin-left: 390px;
     margin-top: 5px;
     cursor: pointer;
+    @media (max-width: 614px) {
+      margin-left: 232px;
+      margin-top: 7px;
+      height: 22px;
+  }
   }
 `;
