@@ -3,7 +3,7 @@ import { useEffect, useState} from "react";
 import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { login, getUser } from "../services/linkrAPI.jsx";
+import { login} from "../services/linkrAPI.jsx";
 // import userContext from "../contexts/userContexts.jsx";
 import Loading from "../commons/Loading.jsx";
 import { Container } from "../global/fonts.js";
@@ -22,25 +22,8 @@ export default function SignIn() {
       // setUser(JSON.parse(localStorage.getItem("linkr")));
       navigate("/timeline");
     }
-  }, []);
+  }, [navigate]);
 
-  function loadUser() {
-    getUser()
-      .then((res) => {
-        const { email, token } = JSON.parse(localStorage.getItem("linkr"));
-        const { name, profilePic, id } = res.data;
-        const dateLogin = new Date();
-        const newUser = { email, token, name, profilePic, id, dateLogin };
-        // setUser(newUser);
-
-        localStorage.setItem("linkr", JSON.stringify(newUser));
-      })
-      .catch((err) => {
-        localStorage.removeItem("linkr");
-
-        console.log(err);
-      });
-  }
 
   function loginSubmit(e) {
     e.preventDefault();
@@ -51,12 +34,7 @@ export default function SignIn() {
 
     login(body)
       .then((res) => {
-        localStorage.setItem(
-          "linkr",
-          JSON.stringify({ email, token: res.data })
-        );
         localStorage.setItem("localToken", res.data);
-        loadUser();
         navigate("/timeline");
       })
       .catch((err) => {
