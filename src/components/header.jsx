@@ -118,8 +118,8 @@ export default function Header() {
         />
         <FiSearch onClick={searchUsers} className="search" />
         <div className="users">
-          {users.map(u => 
-          <Link  to={`/user/${u.id}`} onClick={() => Location.reload()}>
+          {users.map((u, i) => 
+          <Link key={i} to={`/user/${u.id}`} onClick={() => Location.reload()}>
             <div className="user">
             <img src={u.pictureUrl} alt="profile" />
             <span>{u.username}</span>
