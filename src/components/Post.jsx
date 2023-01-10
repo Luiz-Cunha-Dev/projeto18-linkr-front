@@ -106,6 +106,10 @@ const Wraper = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 16px;
+  @media (max-width: 614px) {
+    width: 100vw;
+    border-radius: 0px;
+  }
 `;
 
 const ProfilePicture = styled.div`
@@ -119,10 +123,19 @@ const ProfilePicture = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    @media (max-width: 614px) {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
   }
 
   react-icons {
     font-size: 10px;
+    color: white;
+    @media (max-width: 614px) {
+    font-size: 6px;
+  }
   }
 `;
 
@@ -131,12 +144,20 @@ const Content = styled.div`
   margin-left: 18px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 614px) {
+margin-left: 14px;
+
+  }
 
   h1 {
     font-family: "Lato", sans-serif;
     font-weight: 400px;
     font-size: 19px;
     color: #ffffff;
+    @media (max-width: 614px) {
+      font-size: 17px;
+line-height: 20px;
+  }
   }
 
   h2 {
@@ -144,6 +165,11 @@ const Content = styled.div`
     font-weight: 700px;
     font-size: 17px;
     color: #b7b7b7;
+    @media (max-width: 614px) {
+      font-size: 15px;
+      font-weight: 400;
+line-height: 18px;
+  }
   }
   .name_icons {
     display: flex;
@@ -152,9 +178,17 @@ const Content = styled.div`
     margin-bottom: 3px;
     .Pencil {
       margin-right: 10px;
+      @media (max-width: 614px) {
+    font-size: 6px;
+    margin-top: 10px;
+  }
     }
     .Trash {
       margin-right: 15px;
+      @media (max-width: 614px) {
+    font-size: 6px;
+    margin-top: 10px;
+  }
     }
   }
 `;
@@ -162,29 +196,51 @@ const Content = styled.div`
 const Link = styled.div`
   display: flex;
   width: 503px;
-  height: 155px;
+  height: 100%;
   margin-top: 15px;
   border: 1px solid #4d4d4d;
   border-radius: 10px;
+  @media (max-width: 614px) {
+    width: 288px;
+height: 100%;
+  }
   h1 {
     font-family: "Lato", sans-serif;
     font-weight: 400px;
     font-size: 16px;
     color: #ffffff;
     padding-left: 10px;
+    padding-right: 10px;
     padding-top: 10px;
+    word-break: break-all;
+    @media (max-width: 614px) {
+      font-size: 11px;
+line-height: 13px;
+  }
   }
 
   h2 {
     font-size: 11px;
     padding-left: 10px;
+    padding-right: 10px;
     padding-top: 10px;
+    word-break: break-all;
+    @media (max-width: 614px) {
+      font-size: 9px;
+line-height: 11px;
+  }
   }
   h3 {
     font-size: 11px;
     padding-left: 10px;
+    padding-right: 10px;
     padding-top: 10px;
     color: #cecece;
+    word-break: break-all;
+    @media (max-width: 614px) {
+      font-size: 9px;
+line-height: 11px;
+  }
   }
   div {
     display: flex;
@@ -192,7 +248,12 @@ const Link = styled.div`
   }
   img {
     width: 153.44px;
-    height: 155px;
+    min-height: 155px;
     border-radius: 0px 10px 10px 0px;
+    @media (max-width: 614px) {
+      width: 95px;
+min-height: 115px;
+border-radius: 0px 12px 13px 0px;
+  }
   }
 `;
