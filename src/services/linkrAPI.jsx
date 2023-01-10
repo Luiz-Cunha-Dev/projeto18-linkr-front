@@ -1,6 +1,6 @@
 import axios from "axios";
-const BASE_URL = "https://api-linkr-0kjk.onrender.com/";
-// const BASE_URL = "http://localhost:4000/";
+//const BASE_URL = "https://api-linkr-0kjk.onrender.com/";
+const BASE_URL = "http://localhost:4000/";
 
 function login(body) {
   return axios.post(`${BASE_URL}signin`, body);
