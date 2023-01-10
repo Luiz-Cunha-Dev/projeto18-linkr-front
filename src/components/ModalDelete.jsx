@@ -1,10 +1,11 @@
 import Modal from "react-modal";
 import { useContext, useState } from "react";
 import userContext from "../contexts/userContexts.jsx";
+import { deletePost, getPosts } from "../services/linkrAPI.jsx";
 
-
-export default function ModalJsx() {
-    const {modalIsOpen, setIsOpen} = useContext(userContext)
+export default function ModalDelete() {
+  const { modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete } =
+    useContext(userContext);
 
   const customStyles = {
     content: {
@@ -18,33 +19,35 @@ export default function ModalJsx() {
   };
 
   let subtitle;
-  
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = "#f00";
-  }
 
   function closeModal() {
-    setIsOpen(false);
+    return setIsOpen(false);
+  }
+
+  function deleteOnePost() {
+    deletePost(postIdtoDelete)
+      .then((res) => {
+        getPosts();
+        setIsOpen(false);
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
-    <div>
-      <button onClick={openModal}>Open Modal</button>
+    <>
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
+        //  onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel="Example Modal"
       >
         <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Hello</h2>
-        <button onClick={closeModal}>close</button>
+        <button onClick={closeModal}>No, go back</button>
+        <button onClick={deleteOnePost}>Yes, delete it</button>
         <div>I am a modal</div>
         <form>
           <input />
@@ -54,6 +57,6 @@ export default function ModalJsx() {
           <button>the modal</button>
         </form>
       </Modal>
-    </div>
+    </>
   );
 }

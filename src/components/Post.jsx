@@ -1,17 +1,18 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
-import { deletePost, getPosts } from "../services/linkrAPI.jsx";
+import { getPosts } from "../services/linkrAPI.jsx";
 import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
 import { ReactTagify } from "react-tagify";
-import ModalJsx from "./Modal.jsx";
+import ModalDelete from "./ModalDelete.jsx";
 import { useContext } from "react";
 import userContext from "../contexts/userContexts.jsx";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const [posts, setPost] = useState([]);
-  const {modalIsOpen, setIsOpen} = useContext(userContext)
+  const { modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete } =
+    useContext(userContext);
 
   useEffect(() => {
     getPosts()
@@ -37,16 +38,9 @@ export default function Post() {
     }
   }
 
-  function deleteOnePost(postid) {
-    deletePost(postid)
-      .then((res) => {
-        setIsOpen(true)
-        getPosts();
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  function openModal(postid) {
+    setPostIdtoDelete(postid);
+    setIsOpen(true);
   }
 
   if (posts.length === 0) {
@@ -78,10 +72,9 @@ export default function Post() {
                   <IoTrash
                     size={25}
                     className="Trash"
-                    onClick={() => deleteOnePost(obj.postId)}
+                    onClick={() => openModal(obj.postId)}
                   />
-                  <ModalJsx
-                    isOpen={true}/>
+                  <ModalDelete isOpen={true} ariaHideApp={false} />
                 </div>
               </div>
               <ReactTagify colors={"white"} tagClicked={(tag) => alert(tag)}>
