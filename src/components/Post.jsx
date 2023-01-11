@@ -7,11 +7,14 @@ import { ReactTagify } from "react-tagify";
 import { useContext } from "react";
 import userContext from "../contexts/userContexts.jsx";
 import ModalDelete from "./ModalDelete.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const [posts, setPost] = useState([]);
   const { setIsOpen, setPostIdtoDelete } = useContext(userContext);
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     getPosts()
@@ -40,6 +43,11 @@ export default function Post() {
   function openModal(postid) {
     setPostIdtoDelete(postid);
     setIsOpen(true);
+  }
+
+  function ToGoHashtagPage(hash){
+    const hashtag = hash.replace("#", "")
+    navigate(`/hashtag/${hashtag}`)
   }
 
   if (posts.length === 0) {
@@ -76,7 +84,7 @@ export default function Post() {
                 </div>
                 <ModalDelete isOpen={true} ariaHideApp={false} />
               </div>
-              <ReactTagify colors={"white"} tagClicked={(tag) => alert(tag)}>
+              <ReactTagify colors={"white"} tagClicked={(tag) => ToGoHashtagPage(tag)}>
                 <h2>{obj.postComment}</h2>
               </ReactTagify>
               <a href={obj.linkInfo.linkUrl}>
