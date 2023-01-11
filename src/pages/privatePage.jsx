@@ -9,7 +9,6 @@ import axios from "axios";
 export default function Timeline() {
   const { id } = useParams();
   const [userData, setUserData] = useState({});
-  // const [userPosts, setUserPosts] = useState([]);
 
   useEffect(() => {
     const URL = `https://api-linkr-0kjk.onrender.com/user/${id}`;

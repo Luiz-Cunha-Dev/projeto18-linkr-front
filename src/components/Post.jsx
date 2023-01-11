@@ -1,21 +1,25 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
-import { getPosts } from "../services/linkrAPI.jsx";
+import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
 import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
 import { ReactTagify } from "react-tagify";
 import { useContext } from "react";
 import userContext from "../contexts/userContexts.jsx";
 import ModalDelete from "./ModalDelete.jsx";
+import { useParams } from "react-router";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const [posts, setPost] = useState([]);
   const { setIsOpen, setPostIdtoDelete } = useContext(userContext);
+  const { id } = useParams();
 
   useEffect(() => {
-    getPosts()
+    if(id !== undefined){
+      getPostsById(id)
       .then((res) => {
+        console.log(res);
         setPost(res.data);
       })
       .catch((err) => {
@@ -24,7 +28,21 @@ export default function Post() {
         );
         console.log(err);
       });
-  }, [posts]);
+    }else{
+      getPosts()
+      .then((res) => {
+        console.log(res);
+        setPost(res.data);
+      })
+      .catch((err) => {
+        alert(
+          "An error occured while trying to fetch the posts, please refresh the page"
+        );
+        console.log(err);
+      });
+    }
+
+  }, []);
 
   function curtir() {
     console.log("entrou em curtir");
