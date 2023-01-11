@@ -22,6 +22,10 @@ function getPosts() {
   return axios.get(`${BASE_URL}timeline`);
 }
 
+function getPostsById(id) {
+  return axios.get(`${BASE_URL}timeline/${id}`);
+}
+
 function deletePost(postid) {
   const token = localStorage.getItem("localToken");
 
@@ -35,7 +39,7 @@ function deletePost(postid) {
   });
 }
 
-export { login, logout, signUp, createPost, getPosts, deletePost };
+export { login, logout, signUp, createPost, getPosts, deletePost, getPostsById };
 
 /*
 
