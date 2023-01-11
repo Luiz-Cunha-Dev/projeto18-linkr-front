@@ -1,11 +1,13 @@
 import Modal from "react-modal";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import userContext from "../contexts/userContexts.jsx";
 import { deletePost, getPosts } from "../services/linkrAPI.jsx";
 import styled from "styled-components";
+import Loading from "../commons/Loading.jsx";
 
 export default function ModalDelete() {
   const { modalIsOpen, setIsOpen, postIdtoDelete } = useContext(userContext);
+  const [isLoading, setIsLoading] = useState(false);
 
   const customStyles = {
     overlay: {
@@ -29,15 +31,24 @@ export default function ModalDelete() {
   }
 
   function deleteOnePost() {
+    setIsLoading(true);
     deletePost(postIdtoDelete)
       .then((res) => {
         getPosts();
+        setIsLoading(false);
         setIsOpen(false);
         console.log(res);
       })
       .catch((err) => {
+        setIsOpen(false);
         console.log(err);
+        setIsLoading(false);
+        deleteFailed();
       });
+
+    function deleteFailed() {
+      alert("Não foi possível excluir o post");
+    }
   }
 
   return (
@@ -49,11 +60,19 @@ export default function ModalDelete() {
         contentLabel="Example Modal"
       >
         <ModalContainer>
-          <h2>Are you sure you want to delete this post?</h2>
-          <div>
-            <button onClick={closeModal}>No, go back</button>
-            <button onClick={deleteOnePost}>Yes, delete it</button>
-          </div>
+          {isLoading ? (
+            <>
+              <h2>loading ...</h2>
+            </>
+          ) : (
+            <>
+              <h2>Are you sure you want to delete this post?</h2>
+              <div>
+                <button onClick={closeModal}>No, go back</button>
+                <button onClick={deleteOnePost}>Yes, delete it</button>
+              </div>
+            </>
+          )}
         </ModalContainer>
       </Modal>
     </>
