@@ -27,14 +27,27 @@ const Wraper = styled.div`
   font-size: 43px;
   font-weight: 700px;
   margin-top: 72px;
-  .h1_top{
-    margin-bottom: 43px;
-  }
+  position: relative;
+  margin-right: 0px;
+
 `;
 
 const MainPage = styled.div`
 display: flex;
 justify-content: center;
+.h1_top{
+    margin-bottom: 43px;
+    @media (max-width: 614px) {
+      width: 100%;
+      margin-bottom: 19px;
+      margin-top: 5px;
+      padding-left: 5%;
+  }
+  }
+  @media (max-width: 614px) {
+      justify-content: flex-start;
+      margin-bottom: 19px;
+  }
 `;
 
 const Scrolling = styled.div``;
