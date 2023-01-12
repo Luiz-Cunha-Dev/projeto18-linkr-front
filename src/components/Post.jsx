@@ -23,7 +23,6 @@ export default function Post() {
     if(id !== undefined){
       getPostsById(id)
       .then((res) => {
-        console.log(res);
         setPost(res.data);
       })
       .catch((err) => {
@@ -35,7 +34,6 @@ export default function Post() {
     }else{
       getPosts()
       .then((res) => {
-        console.log(res);
         setPost(res.data);
       })
       .catch((err) => {
