@@ -149,6 +149,9 @@ const ProfilePicture = styled.div`
     color: white;
     @media (max-width: 614px) {
       font-size: 6px;
+      react-icons:hover{
+        cursor: pointer;
+      }
     }
   }
 `;
