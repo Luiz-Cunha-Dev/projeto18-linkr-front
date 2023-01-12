@@ -101,7 +101,7 @@ export default function Post() {
 const Wraper = styled.div`
   background-color: #171717;
   width: 611px;
-  height: 276px;
+  min-height: 276px;
   border-radius: 16px;
   display: flex;
   flex-direction: row;
@@ -144,6 +144,7 @@ const Content = styled.div`
   margin-left: 18px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 15px;
   @media (max-width: 614px) {
 margin-left: 14px;
 

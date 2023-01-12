@@ -7,16 +7,18 @@ import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Timeline from "./pages/Timeline.jsx";
 import GlobalStyle from "./global/globalStyle.js";
+import profilePicture from "./images/userPicture.png"
 
 export default function App() {
   const [user, setUser] = useState({});
   const [modalIsOpen, setIsOpen] = useState(false);
   const [postIdtoDelete, setPostIdtoDelete] = useState();
+  const [userPicture, setUserPicture] = useState(profilePicture)
 
   return (
     <>
       <GlobalStyle />
-      <userContext.Provider value={{ user, setUser, modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete }}>
+      <userContext.Provider value={{ user, setUser, modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete, userPicture, setUserPicture }}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignIn />} />

@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import { FiChevronDown, FiChevronUp, FiSearch } from "react-icons/fi";
 import { DebounceInput } from "react-debounce-input";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import profilePicture from "../images/userPicture.png"
+import userContext from "../contexts/userContexts";
 
 
 export default function Header() {
   const navigate = useNavigate();
   const [logoutButton, setLogoutButton] = useState(false);
   const [search, setSearch] = useState("");
-  const [userPicture, setUserPicture] = useState(profilePicture)
   const [users, setUsers] = useState([])
+  const { userPicture, setUserPicture } = useContext(userContext);
 
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function Header() {
       axios
         .post(URL, {username:search})
         .then((res) => {
-          console.log(search);
+          setUsers(res.data)
           console.log(res);
         })
         .catch((err) => {
