@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
 import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
-import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
+import { IoHeartOutline, IoHeart, IoPencil, IoTrash, IoRepeatSharp } from "react-icons/io5";
+import { FaRegCommentDots } from "react-icons/fa";
 import { ReactTagify } from "react-tagify";
 import { useContext } from "react";
 import userContext from "../contexts/userContexts.jsx";
@@ -83,13 +84,15 @@ export default function Post() {
           <Wraper key={key}>
             <ProfilePicture>
               <img src={obj.userImage} alt="" />
-              <div onClick={curtir}>
+              <div onClick={curtir} className="Heart">
                 {curtida === "IoHeart" ? (
-                  <IoHeart size={30} />
+                  <IoHeart size={26} />
                 ) : (
-                  <IoHeartOutline size={30} />
+                  <IoHeartOutline size={26} />
                 )}
               </div>
+              <FaRegCommentDots size={22} className="Comment"/>
+              <IoRepeatSharp size={25} className="Repost"/>
             </ProfilePicture>
             <Content>
               <div className="name_icons">
@@ -145,7 +148,6 @@ const ProfilePicture = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   img {
     width: 50px;
     height: 50px;
@@ -156,13 +158,14 @@ const ProfilePicture = styled.div`
     margin-bottom: 10px;
   }
   }
-
-  react-icons {
-    font-size: 10px;
-    color: white;
-    @media (max-width: 614px) {
-    font-size: 6px;
+  .Comment{
+    margin-top: 30px;
   }
+  .Repost{
+    margin-top: 30px;
+  }
+  .Heart{
+    margin-top: 16px;
   }
 `;
 
