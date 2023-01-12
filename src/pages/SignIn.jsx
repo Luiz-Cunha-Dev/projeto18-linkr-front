@@ -18,8 +18,8 @@ export default function SignIn() {
   // const { user, setUser } = useContext(userContext);
 
   useEffect(() => {
-    if (localStorage.getItem("linkr") !== null) {
-      // setUser(JSON.parse(localStorage.getItem("linkr")));
+    localStorage.setItem("update", "true");
+    if (localStorage.getItem("localToken") !== null) {
       navigate("/timeline");
     }
   }, [navigate]);
