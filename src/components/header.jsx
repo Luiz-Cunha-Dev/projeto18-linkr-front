@@ -123,7 +123,6 @@ export default function Header() {
             <div className="user">
             <img src={u.pictureUrl} alt="profile" />
             <p>{u.username}<span>• following</span></p>
-
           </div>
           </Link>
           )}
@@ -165,7 +164,7 @@ export default function Header() {
           <Link key={i} to={`/user/${u.id}`} onClick={() => Location.reload()}>
             <div className="user">
             <img src={u.pictureUrl} alt="profile" />
-            <span>{u.username}</span>
+            <p>{u.username}<span>• following</span></p>
           </div>
           </Link>
           )}
