@@ -122,7 +122,8 @@ export default function Header() {
           <Link key={i} to={`/user/${u.id}`} onClick={() => Location.reload()}>
             <div className="user">
             <img src={u.pictureUrl} alt="profile" />
-            <span>{u.username}</span>
+            <p>{u.username}<span>• following</span></p>
+
           </div>
           </Link>
           )}
@@ -322,14 +323,22 @@ display: none;
         border-radius: 304px;
         margin-right: 12px;
       }
-      span{
+      p{
         font-family: 'Lato';
 font-style: normal;
 font-weight: 400;
 font-size: 19px;
 line-height: 23px;
 color: #515151;
-      }
+span{
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 23px;
+color: #C5C5C5;
+margin-left: 7px;
+}
 
     }
   }
@@ -404,15 +413,22 @@ display: none;
         border-radius: 304px;
         margin-right: 12px;
       }
-      span{
+      p{
         font-family: 'Lato';
 font-style: normal;
 font-weight: 400;
 font-size: 19px;
 line-height: 23px;
 color: #515151;
-      }
-
-    }
+span{
+  font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 19px;
+line-height: 23px;
+color: #C5C5C5;
+}
   }
+      }
+    }
 `;
