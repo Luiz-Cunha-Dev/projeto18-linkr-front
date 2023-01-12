@@ -45,7 +45,7 @@ export default function Post() {
       });
     }
 
-  }, []);
+  }, [posts]);
 
   function curtir() {
     console.log("entrou em curtir");
@@ -204,8 +204,8 @@ line-height: 18px;
     .Pencil {
       margin-right: 10px;
       @media (max-width: 614px) {
-    font-size: 6px;
-    margin-top: 10px;
+      font-size: 6px;
+      margin-top: 10px;
   }
     }
     .Trash {
