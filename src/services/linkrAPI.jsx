@@ -39,8 +39,12 @@ function deletePost(postid) {
   });
 }
 
-export { login, logout, signUp, createPost, getPosts, deletePost, getPostsById };
-
-/*
-
-*/
+export {
+  login,
+  logout,
+  signUp,
+  createPost,
+  getPosts,
+  deletePost,
+  getPostsById,
+};

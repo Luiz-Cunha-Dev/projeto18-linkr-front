@@ -16,33 +16,30 @@ export default function Post() {
   const { id } = useParams();
 
   useEffect(() => {
-    if(id !== undefined){
+    if (id !== undefined) {
       getPostsById(id)
-      .then((res) => {
-        console.log(res);
-        setPost(res.data);
-      })
-      .catch((err) => {
-        alert(
-          "An error occured while trying to fetch the posts, please refresh the page"
-        );
-        console.log(err);
-      });
-    }else{
+        .then((res) => {
+          setPost(res.data);
+        })
+        .catch((err) => {
+          alert(
+            "An error occured while trying to fetch the posts, please refresh the page"
+          );
+          console.log(err);
+        });
+    } else {
       getPosts()
-      .then((res) => {
-        console.log(res);
-        setPost(res.data);
-      })
-      .catch((err) => {
-        alert(
-          "An error occured while trying to fetch the posts, please refresh the page"
-        );
-        console.log(err);
-      });
+        .then((res) => {
+          setPost(res.data);
+        })
+        .catch((err) => {
+          alert(
+            "An error occured while trying to fetch the posts, please refresh the page"
+          );
+          console.log(err);
+        });
     }
-
-  }, []);
+  }, [posts]);
 
   function curtir() {
     console.log("entrou em curtir");
@@ -141,18 +138,18 @@ const ProfilePicture = styled.div`
     height: 50px;
     border-radius: 50%;
     @media (max-width: 614px) {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
-  }
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
   }
 
   react-icons {
     font-size: 10px;
     color: white;
     @media (max-width: 614px) {
-    font-size: 6px;
-  }
+      font-size: 6px;
+    }
   }
 `;
 
@@ -162,8 +159,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: column;
   @media (max-width: 614px) {
-margin-left: 14px;
-
+    margin-left: 14px;
   }
 
   h1 {
@@ -173,8 +169,8 @@ margin-left: 14px;
     color: #ffffff;
     @media (max-width: 614px) {
       font-size: 17px;
-line-height: 20px;
-  }
+      line-height: 20px;
+    }
   }
 
   h2 {
@@ -185,8 +181,8 @@ line-height: 20px;
     @media (max-width: 614px) {
       font-size: 15px;
       font-weight: 400;
-line-height: 18px;
-  }
+      line-height: 18px;
+    }
   }
   .name_icons {
     display: flex;
@@ -196,16 +192,16 @@ line-height: 18px;
     .Pencil {
       margin-right: 10px;
       @media (max-width: 614px) {
-    font-size: 6px;
-    margin-top: 10px;
-  }
+        font-size: 6px;
+        margin-top: 10px;
+      }
     }
     .Trash {
       margin-right: 15px;
       @media (max-width: 614px) {
-    font-size: 6px;
-    margin-top: 10px;
-  }
+        font-size: 6px;
+        margin-top: 10px;
+      }
     }
   }
 `;
@@ -219,7 +215,7 @@ const Link = styled.div`
   border-radius: 10px;
   @media (max-width: 614px) {
     width: 288px;
-height: 100%;
+    height: 100%;
   }
   h1 {
     font-family: "Lato", sans-serif;
@@ -232,8 +228,8 @@ height: 100%;
     word-break: break-all;
     @media (max-width: 614px) {
       font-size: 11px;
-line-height: 13px;
-  }
+      line-height: 13px;
+    }
   }
 
   h2 {
@@ -244,8 +240,8 @@ line-height: 13px;
     word-break: break-all;
     @media (max-width: 614px) {
       font-size: 9px;
-line-height: 11px;
-  }
+      line-height: 11px;
+    }
   }
   h3 {
     font-size: 11px;
@@ -256,8 +252,8 @@ line-height: 11px;
     word-break: break-all;
     @media (max-width: 614px) {
       font-size: 9px;
-line-height: 11px;
-  }
+      line-height: 11px;
+    }
   }
   div {
     display: flex;
@@ -269,8 +265,8 @@ line-height: 11px;
     border-radius: 0px 10px 10px 0px;
     @media (max-width: 614px) {
       width: 95px;
-min-height: 115px;
-border-radius: 0px 12px 13px 0px;
-  }
+      min-height: 115px;
+      border-radius: 0px 12px 13px 0px;
+    }
   }
 `;
