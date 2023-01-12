@@ -7,6 +7,8 @@ import SignIn from "./pages/SignIn.jsx";
 import SignUp from "./pages/SignUp.jsx";
 import Timeline from "./pages/Timeline.jsx";
 import GlobalStyle from "./global/globalStyle.js";
+import HashtagPage from "./pages/HashtagsPage.jsx"
+
 
 export default function App() {
   const [user, setUser] = useState({});
@@ -23,6 +25,7 @@ export default function App() {
             <Route path="/sign-up" element={<SignUp />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/user/:id" element={<PrivatePage />} />
+            <Route path="/hashtag/:hashtag" element={<HashtagPage />} />
           </Routes>
         </BrowserRouter>
       </userContext.Provider>
