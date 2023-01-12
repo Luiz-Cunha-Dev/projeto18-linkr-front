@@ -92,12 +92,14 @@ export default function Header() {
       .then((res) => {
         console.log(res);
         localStorage.removeItem("localToken");
-        localStorage.removeItem("linkr");
+        localStorage.removeItem("update");
         navigate("/");
       })
       .catch((err) => {
         console.log(err);
         alert(err.response.data);
+        localStorage.removeItem("localToken");
+        localStorage.removeItem("update");
         navigate("/");
       });
   }

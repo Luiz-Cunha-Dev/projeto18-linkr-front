@@ -1,11 +1,21 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
 import CreatePost from "../components/CreatePost.jsx";
 import Header from "../components/header.jsx";
 import Post from "../components/Post.jsx";
 import Trending from "../components/Trending.jsx";
 
 export default function Timeline() {
+
+  useEffect(() => {
+  const update = localStorage.getItem("update");
+
+    if (update === "true") {
+      localStorage.setItem("update", "false");
+      window.location.reload()
+    }
+  }, []);
+
   return (
     <Wraper>
       <Header />
