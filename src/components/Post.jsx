@@ -9,6 +9,7 @@ import userContext from "../contexts/userContexts.jsx";
 import ModalDelete from "./ModalDelete.jsx";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
+import { FiFrown } from "react-icons/fi";
 
 
 export default function Post() {
@@ -70,9 +71,10 @@ export default function Post() {
 
   if (posts.length === 0) {
     return (
-      <>
+      <NoPosts>
         <h1>There are no posts yet</h1>
-      </>
+        <FiFrown/>
+      </NoPosts>
     );
   } else {
     return (
@@ -281,4 +283,27 @@ min-height: 115px;
 border-radius: 0px 12px 13px 0px;
   }
   }
+`;
+
+const NoPosts = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-size: 40px;
+width: 630px;
+padding-top: 50px;
+@media (max-width: 614px) {
+    width: 100vw;
+    padding-top: 70px;
+  }
+
+  h1 {
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+
 `;
