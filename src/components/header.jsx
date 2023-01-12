@@ -36,11 +36,19 @@ export default function Header() {
   }, []);
 
   function searchUsers() {
+        const token = localStorage.getItem("localToken");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     if (search !== "") {
       const URL = "https://api-linkr-0kjk.onrender.com/users";
 
       axios
-        .post(URL, { username: search })
+        .post(URL, { username: search }, config)
         .then((res) => {
           console.log(search);
           console.log(res);
@@ -52,11 +60,19 @@ export default function Header() {
   }
 
   useEffect(() => {
+        const token = localStorage.getItem("localToken");
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
     if (search !== "") {
       const URL = "https://api-linkr-0kjk.onrender.com/users";
 
       axios
-        .post(URL, { username: search })
+        .post(URL, { username: search }, config)
         .then((res) => {
           setUsers(res.data);
           console.log(res);
@@ -130,7 +146,7 @@ export default function Header() {
                 <img src={u.pictureUrl} alt="profile" />
                 <p>
                   {u.username}
-                  <span>• following</span>
+                  {u.following === true ? <span>• following</span> : ""}
                 </p>
               </div>
             </Link>
@@ -176,7 +192,7 @@ export default function Header() {
                 <img src={u.pictureUrl} alt="profile" />
                 <p>
                   {u.username}
-                  <span>• following</span>
+                  {u.following === true ? <span>• following</span> : ""}
                 </p>
               </div>
             </Link>
