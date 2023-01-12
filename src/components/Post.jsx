@@ -2,7 +2,13 @@ import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
 import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
-import { IoHeartOutline, IoHeart, IoPencil, IoTrash, IoRepeatSharp } from "react-icons/io5";
+import {
+  IoHeartOutline,
+  IoHeart,
+  IoPencil,
+  IoTrash,
+  IoRepeatSharp,
+} from "react-icons/io5";
 import { FaRegCommentDots } from "react-icons/fa";
 import { ReactTagify } from "react-tagify";
 import { useContext } from "react";
@@ -12,28 +18,18 @@ import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { FiFrown } from "react-icons/fi";
 
-
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const [posts, setPost] = useState([]);
   const { setIsOpen, setPostIdtoDelete } = useContext(userContext);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
 
   useEffect(() => {
     if (id !== undefined) {
       getPostsById(id)
-      .then((res) => {
-        setPost(res.data);
-      })
-      .catch((err) => {
-        alert(
-          "An error occured while trying to fetch the posts, please refresh the page"
-        );
-        console.log(err);
-      });
-    }else{
         .then((res) => {
+          console.log(res);
           setPost(res.data);
         })
         .catch((err) => {
@@ -44,16 +40,8 @@ export default function Post() {
         });
     } else {
       getPosts()
-      .then((res) => {
-        setPost(res.data);
-      })
-      .catch((err) => {
-        alert(
-          "An error occured while trying to fetch the posts, please refresh the page"
-        );
-        console.log(err);
-      });
         .then((res) => {
+          console.log(res);
           setPost(res.data);
         })
         .catch((err) => {
@@ -63,8 +51,6 @@ export default function Post() {
           console.log(err);
         });
     }
-
-  }, [posts]);
   }, [posts]);
 
   function curtir() {
@@ -83,16 +69,16 @@ export default function Post() {
     setIsOpen(true);
   }
 
-  function ToGoHashtagPage(hash){
-    const hashtag = hash.replace("#", "")
-    navigate(`/hashtag/${hashtag}`)
+  function ToGoHashtagPage(hash) {
+    const hashtag = hash.replace("#", "");
+    navigate(`/hashtag/${hashtag}`);
   }
 
   if (posts.length === 0) {
     return (
       <NoPosts>
         <h1>There are no posts yet</h1>
-        <FiFrown/>
+        <FiFrown />
       </NoPosts>
     );
   } else {
@@ -109,8 +95,8 @@ export default function Post() {
                   <IoHeartOutline size={26} />
                 )}
               </div>
-              <FaRegCommentDots size={22} className="Comment"/>
-              <IoRepeatSharp size={25} className="Repost"/>
+              <FaRegCommentDots size={22} className="Comment" />
+              <IoRepeatSharp size={25} className="Repost" />
             </ProfilePicture>
             <Content>
               <div className="name_icons">
@@ -125,7 +111,10 @@ export default function Post() {
                 </div>
                 <ModalDelete isOpen={true} ariaHideApp={false} />
               </div>
-              <ReactTagify colors={"white"} tagClicked={(tag) => ToGoHashtagPage(tag)}>
+              <ReactTagify
+                colors={"white"}
+                tagClicked={(tag) => ToGoHashtagPage(tag)}
+              >
                 <h2>{obj.postComment}</h2>
               </ReactTagify>
               <a href={obj.linkInfo.linkUrl}>
@@ -176,13 +165,13 @@ const ProfilePicture = styled.div`
       margin-bottom: 10px;
     }
   }
-  .Comment{
+  .Comment {
     margin-top: 30px;
   }
-  .Repost{
+  .Repost {
     margin-top: 30px;
   }
-  .Heart{
+  .Heart {
     margin-top: 16px;
   }
 `;
@@ -226,9 +215,9 @@ const Content = styled.div`
     .Pencil {
       margin-right: 10px;
       @media (max-width: 614px) {
-      font-size: 6px;
-      margin-top: 10px;
-  }
+        font-size: 6px;
+        margin-top: 10px;
+      }
     }
     .Trash {
       margin-right: 15px;
@@ -306,14 +295,14 @@ const Link = styled.div`
 `;
 
 const NoPosts = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-font-size: 40px;
-width: 630px;
-padding-top: 50px;
-@media (max-width: 614px) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  width: 630px;
+  padding-top: 50px;
+  @media (max-width: 614px) {
     width: 100vw;
     padding-top: 70px;
   }
@@ -325,5 +314,4 @@ padding-top: 50px;
     color: #ffffff;
     margin-bottom: 20px;
   }
-
 `;
