@@ -4,21 +4,19 @@ import { FiChevronDown, FiChevronUp, FiSearch } from "react-icons/fi";
 import { DebounceInput } from "react-debounce-input";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import profilePicture from "../images/userPicture.png"
-
+import profilePicture from "../images/userPicture.png";
 
 export default function Header() {
   const navigate = useNavigate();
   const [logoutButton, setLogoutButton] = useState(false);
   const [search, setSearch] = useState("");
-  const [userPicture, setUserPicture] = useState(profilePicture)
-  const [users, setUsers] = useState([])
-
+  const [userPicture, setUserPicture] = useState(profilePicture);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const URL = "https://api-linkr-0kjk.onrender.com/users/me";
 
-    const token = localStorage.getItem("localToken")
+    const token = localStorage.getItem("localToken");
 
     const config = {
       headers: {
@@ -29,13 +27,12 @@ export default function Header() {
     axios
       .get(URL, config)
       .then((res) => {
-        console.log(res)
-        setUserPicture(res.data.pictureUrl)
+        console.log(res);
+        setUserPicture(res.data.pictureUrl);
       })
       .catch((err) => {
         console.log(err);
       });
-
   }, []);
 
   function searchUsers() {
@@ -43,7 +40,7 @@ export default function Header() {
       const URL = "https://api-linkr-0kjk.onrender.com/users";
 
       axios
-        .post(URL, {username:search})
+        .post(URL, { username: search })
         .then((res) => {
           console.log(search);
           console.log(res);
@@ -59,16 +56,16 @@ export default function Header() {
       const URL = "https://api-linkr-0kjk.onrender.com/users";
 
       axios
-        .post(URL, {username:search})
+        .post(URL, { username: search })
         .then((res) => {
-          setUsers(res.data)
+          setUsers(res.data);
           console.log(res);
         })
         .catch((err) => {
           console.log(err);
         });
-    }else{
-      setUsers([])
+    } else {
+      setUsers([]);
     }
   }, [search]);
 
@@ -106,9 +103,12 @@ export default function Header() {
 
   return (
     <>
-      <HeaderStyle state={logoutButton !== true ? "none" : "initial"} heigth={users.length === 0 ? "none" : "initial"}>
+      <HeaderStyle
+        state={logoutButton !== true ? "none" : "initial"}
+        heigth={users.length === 0 ? "none" : "initial"}
+      >
         <Link to="/timeline">
-        <div className="logo">linkr</div>
+          <div className="logo">linkr</div>
         </Link>
         <DebounceInput
           className="debounceInput"
@@ -120,14 +120,21 @@ export default function Header() {
         />
         <FiSearch onClick={searchUsers} className="search" />
         <div className="users">
-          {users.map((u, i) => 
-          <Link key={i} to={`/user/${u.id}`} onClick={() => Location.reload()}>
-            <div className="user">
-            <img src={u.pictureUrl} alt="profile" />
-            <p>{u.username}<span>• following</span></p>
-          </div>
-          </Link>
-          )}
+          {users.map((u, i) => (
+            <Link
+              key={i}
+              to={`/user/${u.id}`}
+              onClick={() => Location.reload()}
+            >
+              <div className="user">
+                <img src={u.pictureUrl} alt="profile" />
+                <p>
+                  {u.username}
+                  <span>• following</span>
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
         <div className="rigth">
           {logoutButton !== true ? (
@@ -142,10 +149,7 @@ export default function Header() {
             />
           )}
 
-          <img
-            src={userPicture}
-            alt="user"
-          />
+          <img src={userPicture} alt="user" />
         </div>
         <div onClick={logout} className="logout">
           Logout
@@ -162,14 +166,21 @@ export default function Header() {
         />
         <FiSearch onClick={searchUsers} className="searchIcon" />
         <div className="users">
-          {users.map((u, i) => 
-          <Link key={i} to={`/user/${u.id}`} onClick={() => Location.reload()}>
-            <div className="user">
-            <img src={u.pictureUrl} alt="profile" />
-            <p>{u.username}<span>• following</span></p>
-          </div>
-          </Link>
-          )}
+          {users.map((u, i) => (
+            <Link
+              key={i}
+              to={`/user/${u.id}`}
+              onClick={() => Location.reload()}
+            >
+              <div className="user">
+                <img src={u.pictureUrl} alt="profile" />
+                <p>
+                  {u.username}
+                  <span>• following</span>
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
       </SearchBar>
     </>
@@ -300,7 +311,7 @@ const HeaderStyle = styled.div`
     left: 460px;
     top: 45px;
     width: 563px;
-    display: ${props => props.heigth};
+    display: ${(props) => props.heigth};
 background: #E7E7E7;
 border-radius: 8px;
 padding-top: 30px;
@@ -343,7 +354,9 @@ margin-left: 7px;
 
     }
   }
+}
 `;
+
 const SearchBar = styled.div`
   display: flex;
   align-items: center;
@@ -351,85 +364,85 @@ const SearchBar = styled.div`
   margin-top: 80px;
   position: relative;
   margin-bottom: 19px;
-  .debounceInput{
-  width: 100%;
-height: 45px;
-background: #FFFFFF;
-border-radius: 8px;
-border: thin;
-padding-left: 14px;
-margin-left: 5%;
-margin-right: 5%;
-z-index: 2;
-::placeholder{
-  font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 19px;
-line-height: 23px;
-color: #C6C6C6;
-}
-@media (min-width: 614px){
-    display: none;
-}
-}
-.searchIcon{
-  position: absolute;
-  left: 85%;
-  width: 21px;
-  color: #C6C6C6;
-  z-index: 2;
-  cursor: pointer;
-  @media (min-width: 614px){
-    display: none;
-}
-}
-.users{
+  .debounceInput {
+    width: 100%;
+    height: 45px;
+    background: #ffffff;
+    border-radius: 8px;
+    border: thin;
+    padding-left: 14px;
+    margin-left: 5%;
+    margin-right: 5%;
+    z-index: 2;
+    ::placeholder {
+      font-family: "Lato";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 19px;
+      line-height: 23px;
+      color: #c6c6c6;
+    }
+    @media (min-width: 614px) {
+      display: none;
+    }
+  }
+  .searchIcon {
+    position: absolute;
+    left: 85%;
+    width: 21px;
+    color: #c6c6c6;
+    z-index: 2;
+    cursor: pointer;
+    @media (min-width: 614px) {
+      display: none;
+    }
+  }
+  .users {
     position: absolute;
     left: 460px;
     top: 45px;
     width: 563px;
-    display: ${props => props.heigth};
-background: #E7E7E7;
-border-radius: 8px;
-padding-top: 30px;
-padding-bottom: 7px;
-padding-left: 17px;
-z-index: 0;
-@media (max-width: 614px) {
-    left: 5%;
-    top: 30px;
-    width: 90%;
+    display: ${(props) => props.heigth};
+    background: #e7e7e7;
+    border-radius: 8px;
+    padding-top: 30px;
+    padding-bottom: 7px;
+    padding-left: 17px;
+    z-index: 0;
+    @media (max-width: 614px) {
+      left: 5%;
+      top: 30px;
+      width: 90%;
     }
     @media (min-width: 614px) {
-display: none;
+      display: none;
     }
-    .user{
+    .user {
       display: flex;
       align-items: center;
       margin-bottom: 16px;
-      img{
+      img {
         width: 39px;
         height: 39px;
         border-radius: 304px;
         margin-right: 12px;
       }
-      p{
-        font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 19px;
-line-height: 23px;
-color: #515151;
-span{
-  font-family: 'Lato';
-font-style: normal;
-font-weight: 400;
-font-size: 19px;
-line-height: 23px;
-color: #C5C5C5;
-}
-  }
+      p {
+        font-family: "Lato";
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19px;
+        line-height: 23px;
+        color: #515151;
+        span {
+          font-family: "Lato";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 19px;
+          line-height: 23px;
+          color: #c5c5c5;
+        }
       }
     }
+  }
 `;

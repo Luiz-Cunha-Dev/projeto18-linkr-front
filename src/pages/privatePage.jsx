@@ -10,8 +10,37 @@ export default function Timeline() {
   const { id } = useParams();
   const [userData, setUserData] = useState({});
   const [follow, setFollow] = useState(false);
+  const token = localStorage.getItem("localToken");
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   useEffect(() => {
+    getFollowInformation()
+    getPosts()
+  }, [id]);
+
+  function getFollowInformation(){
+    const URL = `https://api-linkr-0kjk.onrender.com/follows/${id}`;
+
+    axios
+      .get(URL, config)
+      .then((res) => {
+        console.log(res);
+        if(res.data === ""){
+          setFollow(false)
+        }else{
+          setFollow(true)
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function getPosts(){
     const URL = `https://api-linkr-0kjk.onrender.com/user/${id}`;
 
     axios
@@ -26,7 +55,35 @@ export default function Timeline() {
       .catch((err) => {
         console.log(err);
       });
-  }, [id]);
+  }
+
+  function startFollowing(){
+    const URL = `https://api-linkr-0kjk.onrender.com/follows/${id}`;
+
+    axios
+      .post(URL, {}, config)
+      .then((res) => {
+        console.log(res);
+        setFollow(true)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  function stopFollowing(){
+    const URL = `https://api-linkr-0kjk.onrender.com/follows/${id}`;
+
+    axios
+      .delete(URL, config)
+      .then((res) => {
+        console.log(res);
+        setFollow(false)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <>
@@ -42,7 +99,7 @@ export default function Timeline() {
           </div>
           <div className="trending" >
             <Trending />
-            <button onClick={() => setFollow(!follow)}>{follow === false ? "Follow" : "Unfollow"}</button>
+            <button onClick={follow === false ? startFollowing : stopFollowing}>{follow === false ? "Follow" : "Unfollow"}</button>
           </div>
         </div>
       </Wraper>
