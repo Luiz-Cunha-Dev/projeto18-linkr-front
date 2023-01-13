@@ -9,8 +9,7 @@ import userContext from "../contexts/userContexts.jsx";
 import { useContext } from "react";
 
 export default function Timeline() {
-  const { boxReloadPost } = useContext(userContext);
-
+  const { boxReloadPost, setContador, contador } = useContext(userContext);
   useEffect(() => {
   const update = localStorage.getItem("update");
 
@@ -29,7 +28,7 @@ export default function Timeline() {
         <Scrolling>
           <h1 className="h1_top">timeline</h1>
           <CreatePost />
-          <ButtonRefresh/>
+          {contador !== 0?<ButtonRefresh/>:""}
           <Post />
         </Scrolling>
         <Trending />
