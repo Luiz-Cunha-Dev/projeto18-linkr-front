@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import React, { useContext, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import Header from "../components/header.jsx";
 import Post from "../components/Post.jsx";
 import Trending from "../components/Trending.jsx";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import userContext from "../contexts/userContexts.jsx";
 
 export default function Timeline() {
   const { id } = useParams();
@@ -23,7 +22,7 @@ export default function Timeline() {
   useEffect(() => {
     getFollowInformation()
     getPosts()
-  }, [id]);
+  }, [id, getFollowInformation, getPosts]);
 
   function getFollowInformation(){
     console.log(userId);

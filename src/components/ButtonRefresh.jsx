@@ -1,19 +1,23 @@
 import styled from "styled-components"
 import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import useInterval from "use-interval";
+import { func } from "joi";
+import userContext from "../contexts/userContexts.jsx";
 
 export default function ButtonRefresh(){
-    const [scrollingPost, setScrollingPost] = useState([])
-    const [VerifiedPosts, setVerifiedPosts] = useState([])
-    const [VerifiedPosts2, setVerifiedPosts2] = useState([])
-
-    const arrNewPosts = VerifiedPosts.map((post)=> post.postId)
-    const newPosts = []
+  const [postsIniciais, setPostsIniciais] = useState([])
+  const [novosPosts, setNovosPosts] = useState([])
+  const { boxReloadPost, setBoxReloadPost, posts, setPost } = useContext(userContext);
 
     useEffect(() => {
+      console.log("entrou useEffect")
           getPosts()
             .then((res) => {
-              setScrollingPost(res.data)
+              console.log("Entrou no then")
+              reload(res.data)
+              setPostsIniciais(res.data)
+              setNovosPosts(res.data)
             })
             .catch((err) => {
               alert(
@@ -23,10 +27,40 @@ export default function ButtonRefresh(){
             });
       }, []);
 
+      function reload(){
+        console.log("Reload")
+        setInterval(()=>{
+          getPosts()
+              .then((res) => {
+                setNovosPosts(res.data)
+                compairPosts()
+              })
+              .catch((err) => {
+                console.log("An error occured while trying to fetch the posts, please refresh the page")
+                console.log(err)
+              });
+        }, 15000)
+      }
+      
+      function compairPosts(){
+        if(postsIniciais.length !== novosPosts.length){
+          setBoxReloadPost(true)
+          console.log("Compair posting")
+        }
+      }
+
+      function RenderNewPosts(){
+        setPostsIniciais(novosPosts)
+        setPost(novosPosts)
+        setBoxReloadPost(false)
+        console.log(novosPosts)
+      }
+
     return(
         <>
             <Container>
-                <p>{scrollingPost.length+1} new posts, load more!</p>
+              {novosPosts.length - postsIniciais.length === 0? <p>Não existe novos posts no momento</p>: <p onClick={()=> RenderNewPosts()}>{novosPosts.length - postsIniciais.length} new posts, load more!</p>}
+                
             </Container>
         </>
     )
@@ -37,7 +71,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius:5px;
+    border-radius:10px;
     font-family: "Lato";
     font-size: 16px;
     background-color: #1877F2;
