@@ -29,7 +29,7 @@ export default function ButtonRefresh(){
       function reload(){
         console.log("Reload")
         setInterval(()=>{
-          getPosts()
+          getPostsFromPeopleYouFollow()
               .then((res) => {
                 setNovosPosts(res.data)
                 compairPosts()
