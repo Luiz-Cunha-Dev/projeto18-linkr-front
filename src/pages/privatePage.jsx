@@ -22,7 +22,7 @@ export default function Timeline() {
   useEffect(() => {
     getFollowInformation()
     getPosts()
-  }, [id, getFollowInformation, getPosts]);
+  }, [id]);
 
   function getFollowInformation(){
     console.log(userId);
