@@ -4,6 +4,7 @@ import CreatePost from "../components/CreatePost.jsx";
 import Header from "../components/header.jsx";
 import Post from "../components/Post.jsx";
 import Trending from "../components/Trending.jsx";
+import PostContainer from "../components/PostContainer.jsx";
 
 export default function Timeline() {
 
@@ -23,7 +24,7 @@ export default function Timeline() {
         <Scrolling>
           <h1 className="h1_top">timeline</h1>
           <CreatePost />
-          <Post />
+          <PostContainer />
         </Scrolling>
         <Trending />
       </MainPage>

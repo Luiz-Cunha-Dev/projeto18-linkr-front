@@ -23,6 +23,7 @@
     "react-debounce-input": "^3.3.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
+    "react-infinite-scroller": "^1.2.6",
     "react-loader-spinner": "^5.3.4",
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.6.1",
@@ -40,6 +41,7 @@
     "topo": "^3.0.3",
     "urix": "^0.1.0",
     "url-metadata": "^2.5.0",
+    "use-interval": "^1.4.0",
     "uuid": "^9.0.0",
     "web-vitals": "^3.1.0"
   },

@@ -7,11 +7,21 @@ function login(body) {
 }
 
 function logout() {
-  localStorage.removeItem("linkr");
+  localStorage.removeItem("localToken");
 }
 
 function signUp(body) {
   return axios.post(`${BASE_URL}signup`, body);
+}
+
+function getToken() {
+  const dateNow = new Date();
+  const auth = (localStorage.getItem("localToken"));
+  
+  if (dateNow - auth?.date > 86400000) {
+    logout();
+    return null;
+  }
 }
 
 function createPost(body, config) {
@@ -22,8 +32,29 @@ function getPosts() {
   return axios.get(`${BASE_URL}timeline`);
 }
 
+function getPostsLimit({limit=10, offset=0}) {
+  const token = getToken();
+  const config = { header: { Authorization: `Bearer ${token}` } };
+
+  return axios.get(`${BASE_URL}timeline?limit=${limit}&offset=${offset}`, config);
+}
+
+function getPageUser({id, limit=10, offset=0}) {
+  const token = getToken();
+  const config = { header: { Authorization: `Bearer ${token}` } };
+
+  return axios.get(`${BASE_URL}timeline/${id}?limit=${limit}&offset=${offset}`, config);
+}
+
 function getPostsById(id) {
   return axios.get(`${BASE_URL}timeline/${id}`);
+}
+
+function getUsersList(string) {
+  const token = getToken();
+  const config = { header: { Authorization: `Bearer ${token}` } };
+
+  return axios.get(`${BASE_URL}${string}`, config);
 }
 
 function deletePost(postid) {
@@ -47,4 +78,7 @@ export {
   getPosts,
   deletePost,
   getPostsById,
+  getPostsLimit,
+  getPageUser,
+  getUsersList,
 };
