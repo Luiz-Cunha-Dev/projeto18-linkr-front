@@ -1,10 +1,11 @@
-import {  useState } from "react";
+import {  useContext, useState } from "react";
 import React from "react";
 import styled from "styled-components";
-import ProfilePic from "../images/userPicture.png";
 import { createPost } from "../services/linkrAPI.jsx";
+import userContext from "../contexts/userContexts.jsx";
 
 export default function CreatePost() {
+  const { userPicture} = useContext(userContext);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({ link: "", comments: "" });
   const token = localStorage.getItem("localToken");
@@ -41,7 +42,7 @@ export default function CreatePost() {
   return (
     <Wraper>
       <ProfilePicture>
-        <img src={ProfilePic} alt="" />
+        <img src={userPicture} alt="" />
       </ProfilePicture>
       <Content>
         <h1>What are you going to share today?</h1>
