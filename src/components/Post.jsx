@@ -1,30 +1,54 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
-import { getPosts } from "../services/linkrAPI.jsx";
-import { IoHeartOutline, IoHeart, IoPencil, IoTrash } from "react-icons/io5";
+import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
+import {
+  IoHeartOutline,
+  IoHeart,
+  IoPencil,
+  IoTrash,
+  IoRepeatSharp,
+} from "react-icons/io5";
+import { FaRegCommentDots } from "react-icons/fa";
 import { ReactTagify } from "react-tagify";
-import ModalDelete from "./ModalDelete.jsx";
 import { useContext } from "react";
 import userContext from "../contexts/userContexts.jsx";
+import ModalDelete from "./ModalDelete.jsx";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router";
+import { FiFrown } from "react-icons/fi";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const [posts, setPost] = useState([]);
-  const { modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete } =
-    useContext(userContext);
+  const { setIsOpen, setPostIdtoDelete } = useContext(userContext);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
-    getPosts()
-      .then((res) => {
-        setPost(res.data);
-      })
-      .catch((err) => {
-        alert(
-          "An error occured while trying to fetch the posts, please refresh the page"
-        );
-        console.log(err);
-      });
+    if (id !== undefined) {
+      getPostsById(id)
+        .then((res) => {
+          setPost(res.data);
+        })
+        .catch((err) => {
+          alert(
+            "An error occured while trying to fetch the posts, please refresh the page"
+          );
+          console.log(err);
+        });
+    } else {
+      getPosts()
+        .then((res) => {
+          setPost(res.data);
+        })
+        .catch((err) => {
+          alert(
+            "An error occured while trying to fetch the posts, please refresh the page"
+          );
+          console.log(err);
+        });
+    }
   }, [posts]);
 
   function curtir() {
@@ -43,11 +67,17 @@ export default function Post() {
     setIsOpen(true);
   }
 
+  function ToGoHashtagPage(hash) {
+    const hashtag = hash.replace("#", "");
+    navigate(`/hashtag/${hashtag}`);
+  }
+
   if (posts.length === 0) {
     return (
-      <>
+      <NoPosts>
         <h1>There are no posts yet</h1>
-      </>
+        <FiFrown />
+      </NoPosts>
     );
   } else {
     return (
@@ -56,13 +86,15 @@ export default function Post() {
           <Wraper key={key}>
             <ProfilePicture>
               <img src={obj.userImage} alt="" />
-              <div onClick={curtir}>
+              <div onClick={curtir} className="Heart">
                 {curtida === "IoHeart" ? (
-                  <IoHeart size={30} />
+                  <IoHeart size={26} />
                 ) : (
-                  <IoHeartOutline size={30} />
+                  <IoHeartOutline size={26} />
                 )}
               </div>
+              <FaRegCommentDots size={22} className="Comment" />
+              <IoRepeatSharp size={25} className="Repost" />
             </ProfilePicture>
             <Content>
               <div className="name_icons">
@@ -74,10 +106,13 @@ export default function Post() {
                     className="Trash"
                     onClick={() => openModal(obj.postId)}
                   />
-                  <ModalDelete isOpen={true} ariaHideApp={false} />
                 </div>
+                <ModalDelete isOpen={true} ariaHideApp={false} />
               </div>
-              <ReactTagify colors={"white"} tagClicked={(tag) => alert(tag)}>
+              <ReactTagify
+                colors={"white"}
+                tagClicked={(tag) => ToGoHashtagPage(tag)}
+              >
                 <h2>{obj.postComment}</h2>
               </ReactTagify>
               <a href={obj.linkInfo.linkUrl}>
@@ -118,24 +153,24 @@ const ProfilePicture = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
   img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     @media (max-width: 614px) {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 10px;
+    }
   }
+  .Comment {
+    margin-top: 30px;
   }
-
-  react-icons {
-    font-size: 10px;
-    color: white;
-    @media (max-width: 614px) {
-    font-size: 6px;
+  .Repost {
+    margin-top: 30px;
   }
+  .Heart {
+    margin-top: 16px;
   }
 `;
 
@@ -146,8 +181,7 @@ const Content = styled.div`
   flex-direction: column;
   margin-bottom: 15px;
   @media (max-width: 614px) {
-margin-left: 14px;
-
+    margin-left: 14px;
   }
 
   h1 {
@@ -157,8 +191,8 @@ margin-left: 14px;
     color: #ffffff;
     @media (max-width: 614px) {
       font-size: 17px;
-line-height: 20px;
-  }
+      line-height: 20px;
+    }
   }
 
   h2 {
@@ -169,8 +203,8 @@ line-height: 20px;
     @media (max-width: 614px) {
       font-size: 15px;
       font-weight: 400;
-line-height: 18px;
-  }
+      line-height: 18px;
+    }
   }
   .name_icons {
     display: flex;
@@ -180,16 +214,16 @@ line-height: 18px;
     .Pencil {
       margin-right: 10px;
       @media (max-width: 614px) {
-    font-size: 6px;
-    margin-top: 10px;
-  }
+        font-size: 6px;
+        margin-top: 10px;
+      }
     }
     .Trash {
       margin-right: 15px;
       @media (max-width: 614px) {
-    font-size: 6px;
-    margin-top: 10px;
-  }
+        font-size: 6px;
+        margin-top: 10px;
+      }
     }
   }
 `;
@@ -203,7 +237,7 @@ const Link = styled.div`
   border-radius: 10px;
   @media (max-width: 614px) {
     width: 288px;
-height: 100%;
+    height: 100%;
   }
   h1 {
     font-family: "Lato", sans-serif;
@@ -216,8 +250,8 @@ height: 100%;
     word-break: break-all;
     @media (max-width: 614px) {
       font-size: 11px;
-line-height: 13px;
-  }
+      line-height: 13px;
+    }
   }
 
   h2 {
@@ -228,8 +262,8 @@ line-height: 13px;
     word-break: break-all;
     @media (max-width: 614px) {
       font-size: 9px;
-line-height: 11px;
-  }
+      line-height: 11px;
+    }
   }
   h3 {
     font-size: 11px;
@@ -240,8 +274,8 @@ line-height: 11px;
     word-break: break-all;
     @media (max-width: 614px) {
       font-size: 9px;
-line-height: 11px;
-  }
+      line-height: 11px;
+    }
   }
   div {
     display: flex;
@@ -253,8 +287,30 @@ line-height: 11px;
     border-radius: 0px 10px 10px 0px;
     @media (max-width: 614px) {
       width: 95px;
-min-height: 115px;
-border-radius: 0px 12px 13px 0px;
+      min-height: 115px;
+      border-radius: 0px 12px 13px 0px;
+    }
   }
+`;
+
+const NoPosts = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  width: 630px;
+  padding-top: 50px;
+  @media (max-width: 614px) {
+    width: 100vw;
+    padding-top: 70px;
+  }
+
+  h1 {
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: #ffffff;
+    margin-bottom: 20px;
   }
 `;

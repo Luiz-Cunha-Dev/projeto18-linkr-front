@@ -1,29 +1,21 @@
 import styled from "styled-components";
-import React, { useEffect } from "react";
-import CreatePost from "../components/CreatePost.jsx";
+import React from "react";
 import Header from "../components/header.jsx";
-import Post from "../components/Post.jsx";
+import PostsHashtag from "../components/PostsHashtag.jsx";
 import Trending from "../components/Trending.jsx";
+import { useParams } from "react-router-dom";
 
-export default function Timeline() {
+export default function HashtagPage() {
 
-  useEffect(() => {
-  const update = localStorage.getItem("update");
-
-    if (update === "true") {
-      localStorage.setItem("update", "false");
-      window.location.reload()
-    }
-  }, []);
+    const {hashtag} = useParams()
 
   return (
     <Wraper>
       <Header />
       <MainPage>
         <Scrolling>
-          <h1 className="h1_top">timeline</h1>
-          <CreatePost />
-          <Post />
+          <h1 className="h1_top">#{hashtag}</h1>
+          <PostsHashtag hash={hashtag}/>
         </Scrolling>
         <Trending />
       </MainPage>
