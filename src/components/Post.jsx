@@ -17,6 +17,7 @@ import ModalDelete from "./ModalDelete.jsx";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router";
 import { FiFrown } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
@@ -40,6 +41,7 @@ export default function Post() {
     } else {
       getPosts()
         .then((res) => {
+          console.log(res);
           setPost(res.data);
         })
         .catch((err) => {
@@ -49,7 +51,7 @@ export default function Post() {
           console.log(err);
         });
     }
-  }, [posts]);
+  }, []);
 
   function curtir() {
     console.log("entrou em curtir");
@@ -85,7 +87,12 @@ export default function Post() {
         {posts.map((obj, key) => (
           <Wraper key={key}>
             <ProfilePicture>
-              <img src={obj.userImage} alt="" />
+            <Link
+              to={`/user/${obj.userId}`}
+              onClick={() => Location.reload()}
+            >
+              <img src={obj.userImage} alt="" ></img>
+              </Link>
               <div onClick={curtir} className="Heart">
                 {curtida === "IoHeart" ? (
                   <IoHeart size={26} color={"#AC0000"} />
@@ -98,7 +105,12 @@ export default function Post() {
             </ProfilePicture>
             <Content>
               <div className="name_icons">
+              <Link
+              to={`/user/${obj.userId}`}
+              onClick={() => Location.reload()}
+            >
                 <h1>{obj.userName}</h1>
+                </Link>
                 <div>
                   <IoPencil size={25} className="Pencil" />
                   <IoTrash
@@ -116,14 +128,14 @@ export default function Post() {
                 <h2>{obj.postComment}</h2>
               </ReactTagify>
               <a href={obj.linkInfo.linkUrl}>
-                <Link>
+                <LinkFrame>
                   <div>
                     <h1>{obj.linkInfo.linkTitle}</h1>
                     <h2>{obj.linkInfo.linkDescription}</h2>
                     <h3>{obj.linkInfo.linkUrl}</h3>
                   </div>
                   <img src={obj.linkInfo.linkImage} alt="" />
-                </Link>
+                </LinkFrame>
               </a>
             </Content>
           </Wraper>
@@ -228,7 +240,7 @@ const Content = styled.div`
   }
 `;
 
-const Link = styled.div`
+const LinkFrame = styled.div`
   display: flex;
   width: 503px;
   height: 100%;
