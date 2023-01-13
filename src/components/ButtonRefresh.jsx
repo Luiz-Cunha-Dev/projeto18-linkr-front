@@ -21,7 +21,7 @@ export default function ButtonRefresh(){
               );
               console.log(err);
             });
-      }, [scrollingPost]);
+      }, []);
 
     return(
         <>
