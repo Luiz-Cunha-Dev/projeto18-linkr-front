@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
+import { getPostsFromPeopleYouFollow, getPostsById } from "../services/linkrAPI.jsx";
 import { useEffect, useState, useContext } from "react";
 import userContext from "../contexts/userContexts.jsx";
 
@@ -11,7 +11,7 @@ export default function ButtonRefresh(){
 
     useEffect(() => {
       console.log("entrou useEffect")
-          getPosts()
+          getPostsFromPeopleYouFollow()
             .then((res) => {
               console.log("Entrou no then")
               reload(res.data)
