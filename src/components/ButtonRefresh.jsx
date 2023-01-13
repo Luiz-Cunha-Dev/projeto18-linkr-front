@@ -1,14 +1,13 @@
 import styled from "styled-components"
 import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
 import { useEffect, useState, useContext } from "react";
-import useInterval from "use-interval";
-import { func } from "joi";
 import userContext from "../contexts/userContexts.jsx";
 
 export default function ButtonRefresh(){
   const [postsIniciais, setPostsIniciais] = useState([])
   const [novosPosts, setNovosPosts] = useState([])
-  const { boxReloadPost, setBoxReloadPost, posts, setPost } = useContext(userContext);
+
+  const { boxReloadPost, setBoxReloadPost, setPost, setContador, contador } = useContext(userContext);
 
     useEffect(() => {
       console.log("entrou useEffect")
@@ -39,7 +38,7 @@ export default function ButtonRefresh(){
                 console.log("An error occured while trying to fetch the posts, please refresh the page")
                 console.log(err)
               });
-        }, 15000)
+        }, 1000)
       }
       
       function compairPosts(){
@@ -53,14 +52,13 @@ export default function ButtonRefresh(){
         setPostsIniciais(novosPosts)
         setPost(novosPosts)
         setBoxReloadPost(false)
-        console.log(novosPosts)
+        setContador(0)
       }
 
     return(
         <>
-            <Container>
-              {novosPosts.length - postsIniciais.length === 0? <p>Não existe novos posts no momento</p>: <p onClick={()=> RenderNewPosts()}>{novosPosts.length - postsIniciais.length} new posts, load more!</p>}
-                
+            <Container onClick={()=> RenderNewPosts()}>
+              {contador === 0?<p>There are no new posts</p>:<p>{contador} new posts, load more!</p>}
             </Container>
         </>
     )
@@ -77,10 +75,12 @@ const Container = styled.div`
     background-color: #1877F2;
     width: 611px;
     height: 61px;
+    cursor: pointer;
     @media (max-width: 614px) {
       width: 90%;
       height: 55px;
       margin-left: 5%;
       margin-right: 5%;
   }
+
 `
