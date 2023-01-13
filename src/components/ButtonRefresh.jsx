@@ -9,13 +9,10 @@ export default function ButtonRefresh(){
 
     const arrNewPosts = VerifiedPosts.map((post)=> post.postId)
     const newPosts = []
-    console.log(arrNewPosts)
-    console.log(VerifiedPosts)
-    console.log(newPosts)
+
     useEffect(() => {
           getPosts()
             .then((res) => {
-              console.log(res)
               setScrollingPost(res.data)
             })
             .catch((err) => {

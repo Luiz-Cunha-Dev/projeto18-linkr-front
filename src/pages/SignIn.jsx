@@ -177,6 +177,10 @@ const Form = styled.form`
       opacity: 1;
     }
   }
+  @media (max-width: 614px) {
+    justify-content: start;
+    padding-top: 40px;
+  }
 `;
 
 const Input = styled.input`

@@ -88,7 +88,7 @@ export default function Post() {
               <img src={obj.userImage} alt="" />
               <div onClick={curtir} className="Heart">
                 {curtida === "IoHeart" ? (
-                  <IoHeart size={26} />
+                  <IoHeart size={26} color={"#AC0000"} />
                 ) : (
                   <IoHeartOutline size={26} />
                 )}

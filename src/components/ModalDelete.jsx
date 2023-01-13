@@ -4,6 +4,7 @@ import userContext from "../contexts/userContexts.jsx";
 import { deletePost, getPosts } from "../services/linkrAPI.jsx";
 import styled from "styled-components";
 import Loading from "../commons/Loading.jsx";
+import { FaFileExcel } from "react-icons/fa";
 
 export default function ModalDelete() {
   const { modalIsOpen, setIsOpen, postIdtoDelete } = useContext(userContext);
@@ -20,9 +21,11 @@ export default function ModalDelete() {
       left: "50%",
       right: "auto",
       bottom: "auto",
-      marginRight: "-50%",
       transform: "translate(-50%, -50%)",
       backgroundColor: "rgba(255, 255, 255, 0.5)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
   };
 
@@ -80,8 +83,6 @@ export default function ModalDelete() {
 }
 
 const ModalContainer = styled.div`
-  top: 50%;
-  left: 50%;
   background-color: #333333;
   border-radius: 50px;
   width: 597px;
@@ -91,7 +92,6 @@ const ModalContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-
   div {
     width: 295px;
     display: flex;
@@ -123,5 +123,8 @@ const ModalContainer = styled.div`
     font-weight: 700px;
     font-size: 34px;
     color: #ffffff;
+    @media (max-width: 614px) {
+    font-size: 25px;
+  }
   }
 `;
