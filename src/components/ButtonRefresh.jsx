@@ -46,4 +46,10 @@ const Container = styled.div`
     background-color: #1877F2;
     width: 611px;
     height: 61px;
+    @media (max-width: 614px) {
+      width: 90%;
+      height: 55px;
+      margin-left: 5%;
+      margin-right: 5%;
+  }
 `
