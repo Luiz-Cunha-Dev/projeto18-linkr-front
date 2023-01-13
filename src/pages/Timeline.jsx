@@ -5,8 +5,11 @@ import Header from "../components/header.jsx";
 import Post from "../components/Post.jsx";
 import Trending from "../components/Trending.jsx";
 import ButtonRefresh from "../components/ButtonRefresh.jsx";
+import userContext from "../contexts/userContexts.jsx";
+import { useContext } from "react";
 
 export default function Timeline() {
+  const { boxReloadPost } = useContext(userContext);
 
   useEffect(() => {
   const update = localStorage.getItem("update");
@@ -16,6 +19,8 @@ export default function Timeline() {
       window.location.reload()
     }
   }, []);
+
+
 
   return (
     <Wraper>

@@ -21,10 +21,10 @@ import { Link } from "react-router-dom";
 
 export default function Post() {
   const [curtida, setCurtida] = useState("IoHeartOutline");
-  const [posts, setPost] = useState([]);
-  const { setIsOpen, setPostIdtoDelete } = useContext(userContext);
+  const { setIsOpen, setPostIdtoDelete, posts, setPost  } = useContext(userContext);
   const navigate = useNavigate();
   const { id } = useParams();
+
 
   useEffect(() => {
     if (id !== undefined) {
@@ -45,9 +45,7 @@ export default function Post() {
           setPost(res.data);
         })
         .catch((err) => {
-          alert(
-            "An error occured while trying to fetch the posts, please refresh the page"
-          );
+          console.log("An error occured while trying to fetch the posts, please refresh the page")
           console.log(err);
         });
     }
