@@ -19,7 +19,7 @@ import { useParams } from "react-router";
 import { FiFrown } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-export default function Post() {
+export default function Post({follow}) {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const { setIsOpen, setPostIdtoDelete, posts, setPost  } = useContext(userContext);
   const navigate = useNavigate();
@@ -88,17 +88,17 @@ export default function Post() {
           <FiFrown />
         </NoPosts>
       );
-  }else if(posts.length === 0 && id !== undefined && id === userId){
+  }else if(posts.length === 0 && id !== undefined && follow === true){
        return (
           <NoPosts>
-            <h1>There are no posts yet</h1>
+            <h1>No posts found from your friends</h1>
             <FiFrown />
           </NoPosts>
         );
   }else if(posts.length === 0 && id !== undefined){
     return (
        <NoPosts>
-         <h1>No posts found from your friends</h1>
+         <h1>There are no posts yet</h1>
          <FiFrown />
        </NoPosts>
      );
