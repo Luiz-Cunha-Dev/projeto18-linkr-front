@@ -17,11 +17,12 @@ export default function App() {
   const [userPicture, setUserPicture] = useState(profilePicture);
   const [boxReloadPost, setBoxReloadPost] = useState(false)
   const [posts, setPost] = useState([]);
+  let [contador, setContador] = useState(0)
 
   return (
     <>
       <GlobalStyle />
-      <userContext.Provider value={{ user, setUser, modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete, userPicture, setUserPicture, boxReloadPost, setBoxReloadPost, posts, setPost}}>
+      <userContext.Provider value={{ user, setUser, modalIsOpen, setIsOpen, postIdtoDelete, setPostIdtoDelete, userPicture, setUserPicture, boxReloadPost, setBoxReloadPost, posts, setPost, contador, setContador}}>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<SignIn />} />

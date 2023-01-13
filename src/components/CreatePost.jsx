@@ -5,7 +5,7 @@ import { createPost } from "../services/linkrAPI.jsx";
 import userContext from "../contexts/userContexts.jsx";
 
 export default function CreatePost() {
-  const { userPicture} = useContext(userContext);
+  let { userPicture, contador, setContador} = useContext(userContext);
   const [isLoading, setIsLoading] = useState(false);
   const [form, setForm] = useState({ link: "", comments: "" });
   const token = localStorage.getItem("localToken");
@@ -28,6 +28,7 @@ export default function CreatePost() {
 
     createPost(body, config)
       .then((res) => {
+        setContador(contador= contador + 1)
         setIsLoading(false);
         setForm({ link: "", comments: "" });
       })
