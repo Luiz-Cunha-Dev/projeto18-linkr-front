@@ -3,17 +3,16 @@ import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
 import { useEffect, useState } from "react";
 
 export default function ButtonRefresh(){
-    const [scrollingPost, setScrollingPost] = useState([])
-    const [VerifiedPosts, setVerifiedPosts] = useState([])
-    const [VerifiedPosts2, setVerifiedPosts2] = useState([])
-
-    const arrNewPosts = VerifiedPosts.map((post)=> post.postId)
-    const newPosts = []
+  const [postsIniciais, setPostsIniciais] = useState([])
+  const [novosPosts, setNovosPosts] = useState([])
+  const mapPostsIniciais = postsIniciais.map((post)=> post.postId)
+  const mapNovosPosts = novosPosts.map((post)=> post.postId)
+  const arrayPushPosts = []
 
     useEffect(() => {
           getPosts()
             .then((res) => {
-              setScrollingPost(res.data)
+              setPostsIniciais(res.data)
             })
             .catch((err) => {
               alert(
@@ -21,12 +20,12 @@ export default function ButtonRefresh(){
               );
               console.log(err);
             });
-      }, [scrollingPost]);
+      }, []);
 
     return(
         <>
             <Container>
-                <p>{scrollingPost.length+1} new posts, load more!</p>
+                <p>{arrayPushPosts.length + 1} new posts, load more!</p>
             </Container>
         </>
     )
