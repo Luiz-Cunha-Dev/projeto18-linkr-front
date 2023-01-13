@@ -63,7 +63,7 @@ export default function Post(props) {
             <>
                 {posts.map((obj, key) => 
                     <>
-                        {obj.postComment.includes(hash)? <Wraper key={key}>
+                        {obj.postComment.includes(`#${hash}`)? <Wraper key={key}>
                     <ProfilePicture>
                         <img src={obj.userImage} alt="" />
                         <div onClick={curtir}>
