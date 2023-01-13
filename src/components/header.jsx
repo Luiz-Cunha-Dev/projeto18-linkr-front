@@ -54,8 +54,12 @@ export default function Header() {
       axios
         .post(URL, { username: search }, config)
         .then((res) => {
-          setUsers(res.data)
-          console.log(res);
+          const following = res.data.filter(u => u.following === true);
+          const noFollowing = res.data.filter(u => u.following === false);
+          let sortedUsers = [];
+          following.map(u => sortedUsers.push(u))
+          noFollowing.map(u => sortedUsers.push(u))
+          setUsers(sortedUsers)
         })
         .catch((err) => {
           console.log(err);
@@ -78,8 +82,12 @@ export default function Header() {
       axios
         .post(URL, { username: search }, config)
         .then((res) => {
-          setUsers(res.data);
-          console.log(res);
+          const following = res.data.filter(u => u.following === true);
+          const noFollowing = res.data.filter(u => u.following === false);
+          let sortedUsers = [];
+          following.map(u => sortedUsers.push(u))
+          noFollowing.map(u => sortedUsers.push(u))
+          setUsers(sortedUsers)
         })
         .catch((err) => {
           console.log(err);
