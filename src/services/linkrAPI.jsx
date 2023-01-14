@@ -26,6 +26,17 @@ function getPostsById(id) {
   return axios.get(`${BASE_URL}timeline/${id}`);
 }
 
+function getPostsFromPeopleYouFollow(id) {
+  const token = localStorage.getItem("localToken");
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  return axios.get(`${BASE_URL}timeline/following`, config);
+}
+
 function deletePost(postid) {
   const token = localStorage.getItem("localToken");
 
@@ -47,4 +58,5 @@ export {
   getPosts,
   deletePost,
   getPostsById,
+  getPostsFromPeopleYouFollow
 };

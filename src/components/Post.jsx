@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import styled from "styled-components";
-import { getPosts, getPostsById } from "../services/linkrAPI.jsx";
+import { getPosts, getPostsById, getPostsFromPeopleYouFollow } from "../services/linkrAPI.jsx";
 import {
   IoHeartOutline,
   IoHeart,
@@ -19,14 +19,16 @@ import { useParams } from "react-router";
 import { FiFrown } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-export default function Post() {
+export default function Post({follow}) {
   const [curtida, setCurtida] = useState("IoHeartOutline");
   const { setIsOpen, setPostIdtoDelete, posts, setPost  } = useContext(userContext);
   const navigate = useNavigate();
   const { id } = useParams();
+  const userId = localStorage.getItem("userId");
 
 
   useEffect(() => {
+
     if (id !== undefined) {
       getPostsById(id)
         .then((res) => {
@@ -39,10 +41,10 @@ export default function Post() {
           console.log(err);
         });
     } else {
-      getPosts()
+        getPostsFromPeopleYouFollow()
         .then((res) => {
-          console.log(res);
           setPost(res.data);
+          console.log(res);
         })
         .catch((err) => {
           console.log("An error occured while trying to fetch the posts, please refresh the page")
@@ -72,14 +74,35 @@ export default function Post() {
     navigate(`/hashtag/${hashtag}`);
   }
 
-  if (posts.length === 0) {
+  // if (posts.length === 0) {
+  //   return (
+  //     <NoPosts>
+  //       <h1>There are no posts yet</h1>
+  //       <FiFrown />
+  //     </NoPosts>
+  //   );
+    if (posts.length === 0&& id === undefined) {
+      return (
+        <NoPosts>
+          <h1>You don't follow anyone yet. Search for new friends!</h1>
+          <FiFrown />
+        </NoPosts>
+      );
+  }else if(posts.length === 0 && id !== undefined && follow === true){
+       return (
+          <NoPosts>
+            <h1>No posts found from your friends</h1>
+            <FiFrown />
+          </NoPosts>
+        );
+  }else if(posts.length === 0 && id !== undefined){
     return (
-      <NoPosts>
-        <h1>There are no posts yet</h1>
-        <FiFrown />
-      </NoPosts>
-    );
-  } else {
+       <NoPosts>
+         <h1>There are no posts yet</h1>
+         <FiFrown />
+       </NoPosts>
+     );
+} else {
     return (
       <>
         {posts.map((obj, key) => (
@@ -311,6 +334,8 @@ const NoPosts = styled.div`
   font-size: 40px;
   width: 630px;
   padding-top: 50px;
+  margin-bottom: 30px;
+  text-align: center;
   @media (max-width: 614px) {
     width: 100vw;
     padding-top: 70px;

@@ -22,7 +22,7 @@ export default function Timeline() {
   useEffect(() => {
     getFollowInformation()
     getPosts()
-  }, [id, getFollowInformation, getPosts]);
+  }, [id]);
 
   function getFollowInformation(){
     console.log(userId);
@@ -106,7 +106,7 @@ export default function Timeline() {
         </div>
         <div className="principal">
           <div className="posts">
-            <Post />
+            <Post follow ={follow}/>
           </div>
           <div className="trending" >
             <Trending />
