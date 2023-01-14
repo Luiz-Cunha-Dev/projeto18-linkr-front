@@ -58,7 +58,7 @@ export default function ButtonRefresh(){
     return(
         <>
             <Container onClick={()=> RenderNewPosts()}>
-              {contador === 0?<p>There are no new posts</p>:<p>{contador} new posts, load more!</p>}
+              <p>{contador} new posts, load more!</p>
             </Container>
         </>
     )
